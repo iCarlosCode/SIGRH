@@ -2,6 +2,7 @@ package br.ufrb.edu.gcet236.sigrh.controllers;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import br.ufrb.edu.gcet236.sigrh.services.FornecedorService;
 @RestController
 @RequestMapping(value = "/fornecedores")
 public class FornecedoresController {
+  @Autowired
   FornecedorService lista = new FornecedorService();
 
   @PostMapping(value = "/add")

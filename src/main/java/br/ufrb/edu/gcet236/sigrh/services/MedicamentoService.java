@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 
-public class MedicamentosService {
+public class MedicamentoService {
     private ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>();
     
     

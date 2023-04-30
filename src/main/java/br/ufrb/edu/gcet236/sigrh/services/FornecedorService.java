@@ -3,8 +3,11 @@ package br.ufrb.edu.gcet236.sigrh.services;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import org.springframework.stereotype.Service;
+
 import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 
+@Service
 public class FornecedorService {
 
   private ArrayList<Fornecedor> listaDeFornecedores = new ArrayList<>();

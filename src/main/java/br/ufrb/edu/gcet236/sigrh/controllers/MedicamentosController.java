@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.ufrb.edu.gcet236.sigrh.services.MedicamentosService;
+import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
 /**
@@ -29,7 +29,7 @@ import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
 @RestController
 @RequestMapping("api/armario")
 public class MedicamentosController { //Crie um novo armario
-    MedicamentosService armario = new MedicamentosService(); //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
+    MedicamentoService armario = new MedicamentoService(); //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
     
     int nextID = 0; //Auxilia na criação do codigo dos medicamentos. (Contador)
 
