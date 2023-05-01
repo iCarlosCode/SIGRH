@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +23,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
+import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
+
+
 /**
 * ExampleController
 *
@@ -29,6 +34,7 @@ import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
 @RestController
 @RequestMapping("api/armario")
 public class MedicamentosController { //Crie um novo armario
+    
     MedicamentoService armario = new MedicamentoService(); //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
     
     int nextID = 0; //Auxilia na criação do codigo dos medicamentos. (Contador)
@@ -50,12 +56,29 @@ public class MedicamentosController { //Crie um novo armario
 
     //Crie um novo medicamento
     @PostMapping("/create/medicamento") //Rota para criar um medicamento.
-    public void put(@RequestBody String medicamentoACadastrar) {      
+    public ResponseEntity<String> put(@RequestBody String medicamentoACadastrar) {      
         String json = medicamentoACadastrar;
         
         try{
             ObjectMapper mapper = new ObjectMapper();
             EntradaCadastro entradaCadastro = mapper.readValue(json, EntradaCadastro.class);
+            RestTemplate restTemplate = new RestTemplate();
+            var fornecedor = restTemplate.getForObject("http://localhost:8080/fornecedores/all", ArrayList.class); 
+            System.out.println("FORNECEDOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR" + fornecedor.toString());
+            
+            if (fornecedor.isEmpty())// || !fornecedor.toString().contains(entradaCadastro.getCnpjFornecedor()))
+            {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fornecedor não cadastrado");
+            }
+            else if ((fornecedor != null) && fornecedor.toString().contains(entradaCadastro.getCnpjFornecedor()) == false)
+            {
+                
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fornecedor não cadastrado");
+            }
+            /*if (!mockMvc.perform(get("http://localhost:8080/fornecedores/all")).andDo(MockMvcResultHandlers.print()).getResponse().getContentAsString().contains("" + entradaCadastro.getCnpjFornecedor())) 
+            {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fornecedor não cadastrado");
+            }*/
 
             Medicamento medicamentoNovo = new Medicamento( //pegue os atributos da entrada cadastro e crie um novo medicamento. 
                 entradaCadastro.generateId(entradaCadastro.getNome(), nextID),
@@ -65,8 +88,8 @@ public class MedicamentosController { //Crie um novo armario
                 entradaCadastro.isStatusTarjaPreta(),
                 entradaCadastro.getNome(),
                 entradaCadastro.getFabricante(),
-                entradaCadastro.getOutrasInformacoes());
-
+                entradaCadastro.getOutrasInformacoes(),
+                entradaCadastro.getCnpjFornecedor());
                 //Adicionando o primeiro medicamento
                 if(armario.getMedicamentos().size() < 1){
 
@@ -99,15 +122,12 @@ public class MedicamentosController { //Crie um novo armario
                     }
                 }
                     //Adicionando demais medicamentos no armario
-                
-                    
-            
-                    
+            return ResponseEntity.status(HttpStatus.CREATED).body("Medicamento cadastrado com sucesso!");
         }catch(Exception e){
             e.printStackTrace();
             //System.out.println("Deu erro pae");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Deu erro pae!");
         }
-        
     }
 
     //Remoção de medicamentos
@@ -141,8 +161,9 @@ public class MedicamentosController { //Crie um novo armario
     @RequestParam String tarjaPreta,
     @RequestParam String nome,
     @RequestParam String fabricante,
-    @RequestParam String info){
+    @RequestParam String info,
+    @RequestParam String cnpjFornecedor){
 
-        return armario.editMedicamento(codigoAntigo, codigoNovo, Integer.parseInt(quantidade), Integer.parseInt(peso), Boolean.parseBoolean(generico), Boolean.parseBoolean(tarjaPreta), nome, fabricante, info); 
+        return armario.editMedicamento(codigoAntigo, codigoNovo, Integer.parseInt(quantidade), Integer.parseInt(peso), Boolean.parseBoolean(generico), Boolean.parseBoolean(tarjaPreta), nome, fabricante, info, cnpjFornecedor); 
     }   
 }

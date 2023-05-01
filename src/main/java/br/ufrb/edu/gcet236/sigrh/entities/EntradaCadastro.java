@@ -20,15 +20,17 @@ public class EntradaCadastro{
     public String nome;
     public String fabricante;
     public String outrasInformacoes;
+    public String cnpjFornecedor;
  
 
+    
     public String generateId(String nome, int nextID) {
         String id = String.format("%04d", nextID);
         return nome.charAt(0) + id; //primeiraletra do nome mais um numero (P004), começando do 001
     }
     
     //GETTERS E SETTERS
-
+    
     public String getCodigo() {
         return codigo;
     }
@@ -78,7 +80,11 @@ public class EntradaCadastro{
     public void setOutrasInformacoes(String outrasInformacoes) {
         this.outrasInformacoes = outrasInformacoes;
     }
-
-   
     
+    public String getCnpjFornecedor() {
+        return cnpjFornecedor;
+    }
+    public void setCnpjFornecedor(String cnpjFornecedor) {
+        this.cnpjFornecedor = cnpjFornecedor;
+    }
 }

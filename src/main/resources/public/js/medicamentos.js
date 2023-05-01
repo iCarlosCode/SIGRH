@@ -106,7 +106,8 @@ function requestPOST(){
             "statusTarjaPreta": formInputs[7].checked,
             "nome": formInputs[0].value,
             "fabricante": formInputs[4].value,
-            "outrasInformacoes": formInputs[5].value
+            "outrasInformacoes": formInputs[5].value,
+            "cnpjFornecedor": "12345678901234"
         }),
     };
     const response = fetch("http://localhost:8080/api/armario/create/medicamento", init)

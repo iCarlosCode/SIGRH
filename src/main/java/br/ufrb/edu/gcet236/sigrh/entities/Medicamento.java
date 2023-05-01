@@ -13,9 +13,11 @@ public class Medicamento {
     private String nome;
     private String fabricante;
     private String outrasInformacoes;
-    
-    
+    private String cnpjFornecedor;
 
+    
+    
+    
     //Construtor.
     public Medicamento(String codigo, 
     int quantidade, 
@@ -24,7 +26,8 @@ public class Medicamento {
     boolean statusTarjaPreta,
     String nome, 
     String fabricante, 
-    String outrasInformacoes) {
+    String outrasInformacoes,
+    String cnpjFornecedor) {
         this.codigo = codigo;
             this.quantidade = quantidade;
             this.pesoEmGramas = pesoEmGramas;
@@ -32,15 +35,16 @@ public class Medicamento {
             this.statusTarjaPreta = statusTarjaPreta;
             this.nome = nome;
             this.fabricante = fabricante;
-            this.outrasInformacoes = outrasInformacoes;        
-    }
-    
-    
+            this.outrasInformacoes = outrasInformacoes;     
+            this.cnpjFornecedor = cnpjFornecedor;   
+        }
+        
+        
 
-    @Override // Sobrescrevendo o método equals.
-    public boolean equals(Object obj) {
-        if (obj == null) return false;
-        Medicamento remedio = (Medicamento) obj;
+        @Override // Sobrescrevendo o método equals.
+        public boolean equals(Object obj) {
+            if (obj == null) return false;
+            Medicamento remedio = (Medicamento) obj;
         //Comparando com base no peso,status,nome, fabricante e outras informações.
         return  
                 this.pesoEmGramas == remedio.pesoEmGramas &&
@@ -73,7 +77,13 @@ public class Medicamento {
         this.pesoEmGramas = pesoEmGramas;
     }
     
-     
+    public String getCnpjFornecedor() {
+        return cnpjFornecedor;
+    }
+    public void setCnpjFornecedor(String cnpjFornecedor) {
+        this.cnpjFornecedor = cnpjFornecedor;
+    }
+    
     public boolean isStatusGenerico() {
         return statusGenerico;
     }

@@ -60,7 +60,7 @@ public class MedicamentoService {
         return new ResponseEntity<>("Medicamento não encontrado.", HttpStatus.NOT_FOUND);
     }
     //Lê os atributos do novo medicamento e susbstitui um a um do antigo medicamento.
-    public ResponseEntity<String> editMedicamento(String codigoAntigo, String codigoNovo, int quantidade, int peso, boolean generico, boolean tarjaPreta, String nome, String fabricante, String info){
+    public ResponseEntity<String> editMedicamento(String codigoAntigo, String codigoNovo, int quantidade, int peso, boolean generico, boolean tarjaPreta, String nome, String fabricante, String info, String cnpjFornecedor){
         //Crie um medicamento auxiliar 
         Medicamento medicamentoEditado = new Medicamento(codigoNovo, 
         quantidade, 
@@ -69,7 +69,8 @@ public class MedicamentoService {
         tarjaPreta, 
         nome, 
         fabricante, 
-        info);
+        info,
+        cnpjFornecedor);
 
         for(int i = 0; i < this.medicamentos.size(); i++){
             //Compara com os já existentes com base no código.
