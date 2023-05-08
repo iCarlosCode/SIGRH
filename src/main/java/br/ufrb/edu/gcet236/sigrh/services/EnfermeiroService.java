@@ -2,9 +2,12 @@ package br.ufrb.edu.gcet236.sigrh.services;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Service;
+
 import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
 import br.ufrb.edu.gcet236.sigrh.entities.Pessoa;
 
+@Service
 public class EnfermeiroService {
     private ArrayList<Pessoa> colaboradores = new ArrayList<Pessoa>();
     

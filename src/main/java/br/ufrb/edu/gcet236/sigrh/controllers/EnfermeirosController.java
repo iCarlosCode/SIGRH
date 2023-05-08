@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import br.ufrb.edu.gcet236.sigrh.services.EnfermeiroService;
@@ -21,7 +22,8 @@ import br.ufrb.edu.gcet236.sigrh.entities.Pessoa;
 @RestController
 @RequestMapping("api")
 public class EnfermeirosController {
-    EnfermeiroService hospital = new EnfermeiroService();
+    @Autowired
+    EnfermeiroService hospital;
     ArrayList<Enfermeiro> enfermeiros = new ArrayList<Enfermeiro>();
 
     @GetMapping("/hello-world")
