@@ -1,8 +1,14 @@
 package br.ufrb.edu.gcet236.sigrh.entities;
 //Classe que conecta o FRONT ao BACK, para JSON.
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
+@Entity
 public class Medicamento {
     //Declaração das atributos privados
+    @Column(nullable=false, unique=true)
     private String codigo;
     private int quantidade;
     private int pesoEmGramas;
