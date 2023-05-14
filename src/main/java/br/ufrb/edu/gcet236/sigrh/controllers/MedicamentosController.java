@@ -3,6 +3,7 @@ package br.ufrb.edu.gcet236.sigrh.controllers;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,14 +35,14 @@ import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 @RestController
 @RequestMapping("api/armario")
 public class MedicamentosController { //Crie um novo armario
-    
-    MedicamentoService armario = new MedicamentoService(); //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
+    @Autowired
+    MedicamentoService armario; //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
     
     int nextID = 0; //Auxilia na criação do codigo dos medicamentos. (Contador)
 
     //Pegue todos os medicamentos do armario e exibe na tela.
     @GetMapping("/get/medicamentos")
-    public ArrayList<Medicamento> getMedicamentos() {
+    public List<Medicamento> getMedicamentos() {
        // armario.setMedicamentos(medicamento);
         return armario.getMedicamentos();
     }

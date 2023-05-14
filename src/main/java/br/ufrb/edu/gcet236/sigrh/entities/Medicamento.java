@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 @Entity
 public class Medicamento {
     //Declaração das atributos privados
+    @Id
     @Column(nullable=false, unique=true)
     private String codigo;
     private int quantidade;
@@ -22,7 +23,8 @@ public class Medicamento {
     private String cnpjFornecedor;
 
     
-    
+    public Medicamento() {
+    }
     
     //Construtor.
     public Medicamento(String codigo, 
