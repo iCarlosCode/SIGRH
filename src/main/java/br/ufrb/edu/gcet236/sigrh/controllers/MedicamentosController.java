@@ -1,8 +1,7 @@
 package br.ufrb.edu.gcet236.sigrh.controllers;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
-import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 
 
 /**
@@ -34,14 +32,14 @@ import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 @RestController
 @RequestMapping("api/armario")
 public class MedicamentosController { //Crie um novo armario
-    
-    MedicamentoService armario = new MedicamentoService(); //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
+    @Autowired
+    MedicamentoService armario; //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
     
     int nextID = 0; //Auxilia na criação do codigo dos medicamentos. (Contador)
 
     //Pegue todos os medicamentos do armario e exibe na tela.
     @GetMapping("/get/medicamentos")
-    public ArrayList<Medicamento> getMedicamentos() {
+    public List<Medicamento> getMedicamentos() {
        // armario.setMedicamentos(medicamento);
         return armario.getMedicamentos();
     }
@@ -144,11 +142,11 @@ public class MedicamentosController { //Crie um novo armario
 
     @DeleteMapping("/remove/medicamento")
     public ResponseEntity<String> removeMedicamento(@RequestParam String codigo) {
-        String lista = new String();
+       /* String lista = new String();
         for (Medicamento remedio : armario.getMedicamentos()) {
             lista += "Medicamento: " + remedio.getNome()
             + " Código: " + remedio.getCodigo() + "\n";
-        }
+        }*/
         //System.out.println(lista);
         return armario.removeMedicamento(codigo);
     }

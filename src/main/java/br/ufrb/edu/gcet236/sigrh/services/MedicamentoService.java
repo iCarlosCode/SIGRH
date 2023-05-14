@@ -2,26 +2,35 @@ package br.ufrb.edu.gcet236.sigrh.services;
 
 //Pnde fica os métodos
 import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
+import br.ufrb.edu.gcet236.sigrh.repositories.MedicamentoRepository;
 
+@Service
 public class MedicamentoService {
+    @Autowired
+    private MedicamentoRepository medicamentoRepository;
     private ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>();
     
     
     //Getters e Setters
-    public ArrayList<Medicamento> getMedicamentos() {
-        return this.medicamentos;
+    public List<Medicamento> getMedicamentos() {
+        //return this.medicamentos;
+        return medicamentoRepository.findAll();
     }
 
     public ResponseEntity<String> setMedicamentos(Medicamento placebo) {
         
         //Restiçoes de para adicionar o medicamento.
         if(placebo.getQuantidade() > 0 && placebo.getPesoEmGramas() > 0 && !placebo.getNome().isEmpty() && !placebo.getFabricante().isEmpty()){
-            this.medicamentos.add(placebo); 
+            //this.medicamentos.add(placebo); 
+            medicamentoRepository.save(placebo);
             return ResponseEntity.ok("ok");
         }
     
@@ -48,14 +57,20 @@ public class MedicamentoService {
     //Remoção do medicamento
     public ResponseEntity<String> removeMedicamento(String codigo){
         //Iterando por cada medicamento no armario
-        for (Medicamento medicamento: this.medicamentos){//Lê o array principal dos medicamentos
+        /*for (Medicamento medicamento: this.medicamentos){//Lê o array principal dos medicamentos
 
             if(medicamento.getCodigo().equals(codigo)){
                 //Caso o codigo seja igual ao fornecido remova o medicamento.
-                this.medicamentos.remove(medicamento);
+                //this.medicamentos.remove(medicamento);
+                medicamentoRepository.delete(medicamento);
                 return new ResponseEntity<>("Medicamento removido com sucesso.", HttpStatus.OK);
             }
             
+        }*/
+        Medicamento medicamento = medicamentoRepository.search(codigo).get(0);
+        if(medicamento != null){
+            medicamentoRepository.delete(medicamento);
+            return new ResponseEntity<>("Medicamento removido com sucesso.", HttpStatus.OK);
         }
         return new ResponseEntity<>("Medicamento não encontrado.", HttpStatus.NOT_FOUND);
     }

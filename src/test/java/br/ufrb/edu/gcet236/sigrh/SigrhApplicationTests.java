@@ -33,6 +33,7 @@ class SigrhApplicationTests {
 	private MockMvc mockMvc;
 	@MockBean
 	private FornecedorService fornecedorService;
+	@SuppressWarnings("unused")
 	private MedicamentoService medicamentoService;
 
 	private static ObjectMapper mapper = new ObjectMapper();
