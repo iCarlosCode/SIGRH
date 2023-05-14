@@ -1,7 +1,5 @@
 package br.ufrb.edu.gcet236.sigrh.controllers;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
-import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 
 
 /**
@@ -145,11 +142,11 @@ public class MedicamentosController { //Crie um novo armario
 
     @DeleteMapping("/remove/medicamento")
     public ResponseEntity<String> removeMedicamento(@RequestParam String codigo) {
-        String lista = new String();
+       /* String lista = new String();
         for (Medicamento remedio : armario.getMedicamentos()) {
             lista += "Medicamento: " + remedio.getNome()
             + " Código: " + remedio.getCodigo() + "\n";
-        }
+        }*/
         //System.out.println(lista);
         return armario.removeMedicamento(codigo);
     }
