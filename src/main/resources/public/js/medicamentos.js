@@ -107,7 +107,7 @@ function requestPOST(){
             "nome": formInputs[0].value,
             "fabricante": formInputs[4].value,
             "outrasInformacoes": formInputs[5].value,
-            "cnpjFornecedor": "12345678901234"
+            "cnpjFornecedor": formInputs[8].value,
         }),
     };
     const response = fetch("http://localhost:8080/api/armario/create/medicamento", init)

@@ -23,7 +23,7 @@
               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <form id="form-cadastro" action="" method="post">
+                <form id="form-cadastro">
                     <!--
                         <button onclick="requestPOSTFAKE()">Estoque FAKE</button>
                     -->
@@ -54,6 +54,9 @@
                 
                     <span class="aviso">*</span>
                     
+                    <label for="cnpjFornecedor">CNPJ Fornecedor</label>
+                    <input id="cnpjFornecedor" type="text">
+
                     <button onclick="requestPOST()" type="submit"> Cadastrar</button>
                 </form>
             </div>
