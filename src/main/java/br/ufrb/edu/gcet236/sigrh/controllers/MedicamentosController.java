@@ -164,4 +164,10 @@ public class MedicamentosController { //Crie um novo armario
 
         return armario.editMedicamento(codigoAntigo, codigoNovo, Integer.parseInt(quantidade), Integer.parseInt(peso), Boolean.parseBoolean(generico), Boolean.parseBoolean(tarjaPreta), nome, fabricante, info, cnpjFornecedor); 
     }   
+
+    // GAMBIARRA
+    @GetMapping("/buscar")
+    public Medicamento buscarMedicamento(@RequestParam String codigo) {
+        return armario.buscaPorCodigo(codigo);
+    } 
 }

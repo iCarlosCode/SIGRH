@@ -97,4 +97,9 @@ public class MedicamentoService {
         }
         return new ResponseEntity<>("Medicamento não editado.", HttpStatus.NOT_FOUND);
     }
+
+    // GAMBIARRA
+    public Medicamento buscaPorCodigo(String codigo){
+        return medicamentoRepository.search(codigo).get(0);
+    }
 }

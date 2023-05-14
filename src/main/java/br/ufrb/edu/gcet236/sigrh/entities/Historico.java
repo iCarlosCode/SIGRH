@@ -5,6 +5,11 @@ public class Historico {
     private String codigoMedicamento;
     private int quantidadeMedicamento;
 
+    public Historico(String cpfEnfermeiro, String codigoMedicamento, int quantidadeMedicamento) {
+        this.cpfEnfermeiro = cpfEnfermeiro;
+        this.codigoMedicamento = codigoMedicamento;
+        this.quantidadeMedicamento = quantidadeMedicamento;
+    }
     public String getCpfEnfermeiro() {
         return cpfEnfermeiro;
     }
