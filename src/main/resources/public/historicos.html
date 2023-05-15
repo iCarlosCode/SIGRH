@@ -102,7 +102,7 @@
       style="width: 100vw"
     >
       <!-- Botão da chamada virtual estava aqui 14/01/2023-->
-
+      
       <!--A Lista de Alunos fica dentro deste list-group-->
       <div id="enfermeirosLista" class="list-group">
         <!--Aqui é onde vai a lista de alunos-->
@@ -137,7 +137,7 @@
 
       <!--Agora inicia as definições das Caixas de Diálogo de Diversos Tipos-->
 
-      <!-- Caixa de Diálogo de adicionar enfermeiro -->
+      <!-- Caixa de Diálogo de Retirar Medicamento -->
       <div
         class="modal fade"
         id="addAlunoModalDialog"
@@ -151,7 +151,7 @@
             <!--Cabeçalho da Caixa Diálogo-->
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLongTitle">
-                Cadastrar Enfermeiro
+                Retirar Medicamento
               </h5>
 
               <button
@@ -165,74 +165,64 @@
             <!--Corpo da CD de Adicionar Enfermeiro-->
             <div class="modal-body">
               <!--É AQUI QUE FICA A TELA De adicionar-->
+              <!--COLAR AQUI 🎨🖌🔴🔴🔴🔴🔴🔴🟢🟢🟢🟢🟢🟢🎨🎨🎨🎨🎨🎨🎨🎨🎨-->
               <form>
-                <!--Nome-->
+                <!--Enfermeiro-->
                 <div class="mb-3">
-                    <label for="nomeAdicionarEnfermeiroInput" class="form-label"
-                      >Nome Completo</label
+                    <label for="enfermeiroRetirarMedicamento" class="form-label"
+                      >Enfermeiro</label
                     >
                     <input
+                      list="enfemeiros-list"
                       type="name"
                       class="form-control"
-                      id="nomeAdicionarEnfermeiroInput"
+                      id="enfermeiroRetirarMedicamento"
                     />
+                    <datalist id="enfemeiros-list">
+                      <option value="dog">Dog Bravo</option>
+                      <option value="Mint">
+                      <option value="Strawberry">
+                      <option value="Vanilla">
+                    </datalist>
                 </div>
-
-                <!--CPF-->
+        
+                <!--Medicamento-->
                 <div class="mb-3">
-                    <label for="cpfAdicionarEnfermeiroInput" class="form-label"
-                      >CPF</label
+                    <label for="medicamentoRetirarMedicamento" class="form-label"
+                      >Medicamento</label
                     >
                     <input
+                      list="medicamentos-list"
                       type="name"
                       class="form-control"
-                      id="cpfAdicionarEnfermeiroInput"
+                      id="medicamentoRetirarMedicamento"
                     />
+                    <datalist id="medicamentos-list">
+                      <option value="dog">Dog Bravo</option>
+                      <option value="Chocolate">
+                      <option value="Coconut">
+                    </datalist>
                 </div>
-
-                <!--LOTAÇÃO-->
+        
+                <!--Quantiade-->
                 <div class="mb-3">
-                    <label for="lotacaoAdicionarEnfermeiroInput" class="form-label"
-                      >Lotação</label
-                    > <br>
-                    
-                    <select class="form-select" name="lotacoes" id="lotacaoAdicionarEnfermeiroInput">
-                        <option value="emergência">Emergência</option>
-                        <option value="enfermaria">Enfermaria</option>
-                        <option value="apartamentos">Apartamentos</option>
-                    </select>
-                </div>
-                <!--RG-->
-                <div class="mb-3">
-                    <label for="rgAdicionarEnfermeiroInput" class="form-label"
-                      >RG</label
+                    <label for="quantidadeRetirarMedicamento" class="form-label"
+                      >Quantidade</label
                     >
                     <input
-                      type="name"
+                      type="number"
                       class="form-control"
-                      id="rgAdicionarEnfermeiroInput"
+                      id="quantidadeRetirarMedicamento"
                     />
                 </div>
-
-                <!--Telefone-->
-                <div class="mb-3">
-                    <label for="telefoneAdicionarEnfermeiroInput" class="form-label"
-                      >Telefone</label
-                    >
-                    <input
-                      type="name"
-                      class="form-control"
-                      id="telefoneAdicionarEnfermeiroInput"
-                    />
-                </div>
-
+        
                 <button
                   type="submit"
-                  id="salvarAlunoNovoBtn"
+                  id="retirarMedicamentos"
                   class="btn btn-primary"
                   onclick="requestCadastrarAluno()"
                 >
-                  Salvar
+                  Retirar Medicamento
                 </button>
               </form>
               <!-- Toast Para Informações Importantes-->

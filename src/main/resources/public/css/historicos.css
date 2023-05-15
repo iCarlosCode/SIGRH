@@ -72,7 +72,7 @@ input#barraDePesquisaEnfermeiro {
     
     
     text-indent: 5px;
-    width: 50%;
+    width: 90%;
 }
 
 .list-group{
@@ -185,3 +185,10 @@ div#barraDePesquisa {
     color: #ff2222 !important;
 }
 
+/*This is modifying the btn-primary colors but you could create your own .btn-something class as well*/
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #db0000;
+    border-color: #8e2828; /*set the color you want here*/
+}
