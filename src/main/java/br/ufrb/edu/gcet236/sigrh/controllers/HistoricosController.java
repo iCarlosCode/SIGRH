@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +33,30 @@ public class HistoricosController {
     public ResponseEntity<String> get() {
         return ResponseEntity.ok("Oi Sala de Medicamentos!");
     }
+
+    @GetMapping("/buscar_historico")
+    public ResponseEntity<String> buscarHistorico() {
+        return ResponseEntity.ok("Oi Sala de Medicamentos!");
+    }
+
+    @PostMapping("/cadastar_historico")
+    public ResponseEntity<String> cadastrarHistorico() {
+        return ResponseEntity.ok("Oi Sala de Medicamentos!");
+    }
+
+    @PostMapping("/retirar_medicamento")
+    public ResponseEntity<String> retirarMedicamento() {
+        return ResponseEntity.ok("Oi Sala de Medicamentos!");
+    }
+    
+    /*
+    EXEMPLO DE UM POST QUE RECEBE JSON
+    @PostMapping(value = "/cadastrar")
+    public String cadastrarEnfermeiro(@RequestBody Enfermeiro entrada) {
+        hospital.cadastrarColaboradores(entrada);
+        
+        return hospital.getColaboradores().toString();
+    }*/
 
     @GetMapping("/listar_historicos")
     public ResponseEntity<ArrayList<ItemHistorico>> listarEnfermeiros() {
