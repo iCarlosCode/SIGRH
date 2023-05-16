@@ -2,12 +2,11 @@ package br.ufrb.edu.gcet236.sigrh.controllers;
 
 import java.util.ArrayList;
 
+import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
+import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Historico;
 import br.ufrb.edu.gcet236.sigrh.responses.ItemHistorico;
@@ -45,6 +44,10 @@ public class HistoricosController {
     }
 
     @PostMapping("/retirar_medicamento")
+    public ResponseEntity<String> retirar(@RequestBody Enfermeiro enfermeiro, Medicamento medicine, int qtd) {
+        hospital.addLog(enfermeiro,medicine,qtd);
+        return ResponseEntity.ok("Retirei!");
+    }
     public ResponseEntity<String> retirarMedicamento() {
         return ResponseEntity.ok("Oi Sala de Medicamentos!");
     }
@@ -54,7 +57,7 @@ public class HistoricosController {
     @PostMapping(value = "/cadastrar")
     public String cadastrarEnfermeiro(@RequestBody Enfermeiro entrada) {
         hospital.cadastrarColaboradores(entrada);
-        
+
         return hospital.getColaboradores().toString();
     }*/
 

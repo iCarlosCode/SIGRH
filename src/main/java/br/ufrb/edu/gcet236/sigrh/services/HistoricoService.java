@@ -2,6 +2,8 @@ package br.ufrb.edu.gcet236.sigrh.services;
 
 import java.util.ArrayList;
 
+import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
+import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import org.springframework.stereotype.Service;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Historico;
@@ -29,7 +31,21 @@ public class HistoricoService {
                 historicos.set(i, historicoNovo);
             }
         }
+    } // atulizar utilizando forEarch
+
+    public void addLog(Enfermeiro nurse, Medicamento medicine, int qtd){
+        cadastrarHistorico(new Historico(nurse.getCpf(), medicine.getCodigo(), qtd));
+        medicine.setQuantidade(medicine.getQuantidade()-qtd);
+        // String sql = "INSERT INTO historicos () VALUES ()";
+        // lógica do banco de dados
     }
+
+    /*public ArrayList<Historico> getHistorc (String nomeEnfermeiro, String codEnfermeiro){
+        ArrayList<Historico> logHistoric = new ArrayList<>();
+        for (Historico historicos : historicos) {
+        }
+
+    }*/
 
     /*// Método para remover um colaborador do hospital
     public void removerColaboradores(Pessoa colaborador) {
