@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
+import br.ufrb.edu.gcet236.sigrh.requests.MedicamentoParaRetirar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,24 +30,14 @@ public class HistoricosController {
 
     ArrayList<Historico> historicos = new ArrayList<Historico>();
 
-    @GetMapping("/oi")
-    public ResponseEntity<String> get() {
-        return ResponseEntity.ok("Oi Sala de Medicamentos!");
-    }
-
     @GetMapping("/buscar_historico")
     public ResponseEntity<String> buscarHistorico() {
         return ResponseEntity.ok("Oi Sala de Medicamentos!");
     }
 
-    @PostMapping("/cadastar_historico")
-    public ResponseEntity<String> cadastrarHistorico() {
-        return ResponseEntity.ok("Oi Sala de Medicamentos!");
-    }
-
     @PostMapping("/retirar_medicamento")
-    public ResponseEntity<String> retirar(@RequestBody Enfermeiro enfermeiro, Medicamento medicine, int qtd) {
-        hospital.addLog(enfermeiro,medicine,qtd);
+    public ResponseEntity<String> retirar(@RequestBody MedicamentoParaRetirar medicamentoParaRetirar) {
+        hospital.addLog(medicamentoParaRetirar);
         return ResponseEntity.ok("Retirei!");
     }
     public ResponseEntity<String> retirarMedicamento() {
