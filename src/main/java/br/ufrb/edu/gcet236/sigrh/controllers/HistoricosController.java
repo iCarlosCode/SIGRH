@@ -40,10 +40,7 @@ public class HistoricosController {
         hospital.addLog(medicamentoParaRetirar);
         return ResponseEntity.ok("Retirei!");
     }
-    public ResponseEntity<String> retirarMedicamento() {
-        return ResponseEntity.ok("Oi Sala de Medicamentos!");
-    }
-    
+
     /*
     EXEMPLO DE UM POST QUE RECEBE JSON
     @PostMapping(value = "/cadastrar")
