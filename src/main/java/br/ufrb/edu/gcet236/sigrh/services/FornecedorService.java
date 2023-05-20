@@ -150,5 +150,4 @@ public class FornecedorService {
   public boolean compareStrings(String string1, String string2) {
     return string1.replace(" ", "").equalsIgnoreCase(string2.replace(" ",""));
   }
-  // teste
 }
