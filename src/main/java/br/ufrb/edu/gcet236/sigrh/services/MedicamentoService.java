@@ -102,4 +102,10 @@ public class MedicamentoService {
     public Medicamento buscaPorCodigo(String codigo){
         return medicamentoRepository.search(codigo).get(0);
     }
+
+    public void somarComQuantidadeMedicamento(String codigo, int quantidadeParaSomar) {
+        Medicamento m = buscaPorCodigo(codigo);
+        m.setQuantidade(quantidadeParaSomar + m.getQuantidade());
+        medicamentoRepository.save(m);
+    }
 }

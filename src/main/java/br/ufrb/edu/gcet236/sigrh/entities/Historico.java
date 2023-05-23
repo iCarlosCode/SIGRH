@@ -1,10 +1,23 @@
 package br.ufrb.edu.gcet236.sigrh.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Historico {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String cpfEnfermeiro;
     private String codigoMedicamento;
     private int quantidadeMedicamento;
-
+    
+    // Gambiarra para o org.springframework.orm.jpa.JpaSystemException: No default constructor for entity
+    public Historico() {
+    
+    }
     public Historico(String cpfEnfermeiro, String codigoMedicamento, int quantidadeMedicamento) {
         this.cpfEnfermeiro = cpfEnfermeiro;
         this.codigoMedicamento = codigoMedicamento;

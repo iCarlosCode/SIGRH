@@ -1,9 +1,11 @@
 package br.ufrb.edu.gcet236.sigrh.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
+import br.ufrb.edu.gcet236.sigrh.repositories.HistoricoRepository;
 import br.ufrb.edu.gcet236.sigrh.requests.MedicamentoParaRetirar;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,15 @@ public class HistoricoService {
     @Autowired
     private MedicamentoService medicamentoService;
 
-    public ArrayList<Historico> getHistoricos() {
-        return this.historicos;
+    @Autowired
+    private HistoricoRepository historicoRepository;
+
+    public List<Historico> getHistoricos() {
+        return this.historicoRepository.findAll();
     }
 
     public void cadastrarHistorico(Historico historico) {
-        this.historicos.add(historico);
+        this.historicoRepository.save(historico);
     }
 
     public void atualizarHistorico(Historico historicoNovo) {
@@ -38,8 +43,8 @@ public class HistoricoService {
         }
     }
 
-    public void addLog(MedicamentoParaRetirar medicamentoParaRetirar) {
-        for (Historico h : historicos) {
+    public void addLog(MedicamentoParaRetirar m) {
+        /*for (Historico h : historicos) {
             if (h.getCpfEnfermeiro().equals(medicamentoParaRetirar.cpfEnfermeiro()) && h.getCodigoMedicamento().equals(medicamentoParaRetirar.codigoMedicamento())) {
                 h.setQuantidadeMedicamento(h.getQuantidadeMedicamento() + medicamentoParaRetirar.quantidadeMedicamento());
                 decrementarQtdMedicamento(medicamentoParaRetirar.codigoMedicamento(), medicamentoParaRetirar.quantidadeMedicamento());
@@ -47,12 +52,40 @@ public class HistoricoService {
             }
             cadastrarHistorico(new Historico(medicamentoParaRetirar.cpfEnfermeiro(), medicamentoParaRetirar.codigoMedicamento(), medicamentoParaRetirar.quantidadeMedicamento()));
             decrementarQtdMedicamento(medicamentoParaRetirar.codigoMedicamento(), medicamentoParaRetirar.quantidadeMedicamento());
+        }*/
+        //historicoRepository.deleteAll();
+        Historico historico = historicoRepository.findByCpfEnfermeiroAndCodigoMedicamento(m.cpfEnfermeiro(), m.codigoMedicamento());
+
+        if (historico == null)
+        {
+            historico = new Historico(m.cpfEnfermeiro(), m.codigoMedicamento(), m.quantidadeMedicamento());
         }
+        else
+        {
+            historico.setQuantidadeMedicamento(m.quantidadeMedicamento() + historico.getQuantidadeMedicamento());
+        }
+        
+        cadastrarHistorico(historico);
+        this.medicamentoService.somarComQuantidadeMedicamento(m.codigoMedicamento(), -m.quantidadeMedicamento());
     }
 
+    public int calcularQuantidadeMedicamento(MedicamentoParaRetirar m) {
+        Historico historicoAntigo = historicoRepository.findByCpfEnfermeiroAndCodigoMedicamento(m.cpfEnfermeiro(), m.codigoMedicamento());
+
+        if (historicoAntigo == null)
+        {
+            return m.quantidadeMedicamento();
+        }
+        else
+        {
+            return m.quantidadeMedicamento() + historicoAntigo.getQuantidadeMedicamento();
+        }
+        
+    }
     public void decrementarQtdMedicamento(String codigoMedicamento, int qtd) {
-        Medicamento m = medicamentoService.buscaPorCodigo(codigoMedicamento); // código para decrementar
-        medicamentoService.editMedicamento(m.getCodigo(), m.getCodigo(), m.getQuantidade() - qtd, m.getPesoEmGramas(), m.isStatusGenerico(), m.isStatusTarjaPreta(), m.getNome(), m.getFabricante(), m.getOutrasInformacoes(), m.getCnpjFornecedor());
+        Medicamento m = this.medicamentoService.buscaPorCodigo(codigoMedicamento); // código para decrementar
+        this.medicamentoService.somarComQuantidadeMedicamento(codigoMedicamento, qtd);
+        /*this.medicamentoService.editMedicamento(m.getCodigo(), m.getCodigo(), m.getQuantidade() - qtd, m.getPesoEmGramas(), m.isStatusGenerico(), m.isStatusTarjaPreta(), m.getNome(), m.getFabricante(), m.getOutrasInformacoes(), m.getCnpjFornecedor());*/
     }
 
     /*public ArrayList<Historico> getHistorc (String nomeEnfermeiro, String codEnfermeiro){
@@ -68,12 +101,12 @@ public class HistoricoService {
     }*/
 
     public ArrayList<Historico> buscarPorCPFEnfermeiro(String cpfEnfermeiro) {
-        ArrayList<Historico> resultados = new ArrayList<Historico>();
+        /*ArrayList<Historico> resultados = new ArrayList<Historico>();
         for (Historico h : this.historicos) {
             if (cpfEnfermeiro.equalsIgnoreCase(h.getCpfEnfermeiro())) {
                 resultados.add(h);
             }
-        }
-        return resultados;
+        }*/
+        return historicoRepository.findByCpfEnfermeiro(cpfEnfermeiro);
     }
 }

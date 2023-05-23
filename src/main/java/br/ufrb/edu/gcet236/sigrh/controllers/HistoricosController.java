@@ -1,6 +1,7 @@
 package br.ufrb.edu.gcet236.sigrh.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
@@ -20,7 +21,7 @@ import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 @RequestMapping("api")
 public class HistoricosController {
     @Autowired
-    HistoricoService hospital;
+    HistoricoService historicosService;
 
     @Autowired
     EnfermeiroService enfermeiroService;
@@ -31,14 +32,14 @@ public class HistoricosController {
     ArrayList<Historico> historicos = new ArrayList<Historico>();
 
     @GetMapping("/buscar_historico")
-    public ResponseEntity<String> buscarHistorico() {
-        return ResponseEntity.ok("Oi Sala de Medicamentos!");
+    public ResponseEntity<ArrayList<Historico>> buscarHistorico(@RequestParam String nome, String cpf) {
+        return ResponseEntity.ok(historicosService.buscarPorCPFEnfermeiro(cpf));
     }
 
     @PostMapping("/retirar_medicamento")
-    public ResponseEntity<String> retirar(@RequestBody MedicamentoParaRetirar medicamentoParaRetirar) {
-        hospital.addLog(medicamentoParaRetirar);
-        return ResponseEntity.ok("Retirei!");
+    public ResponseEntity<List<Historico>> retirar(@RequestBody MedicamentoParaRetirar medicamentoParaRetirar) {
+        historicosService.addLog(medicamentoParaRetirar);
+        return ResponseEntity.ok(historicosService.getHistoricos());
     }
 
     /*
@@ -52,7 +53,21 @@ public class HistoricosController {
 
     @GetMapping("/listar_historicos")
     public ResponseEntity<ArrayList<ItemHistorico>> listarEnfermeiros() {
-        if (historicos.size() == 0) {
+        List<Historico> historicos = historicosService.getHistoricos();
+        ArrayList<ItemHistorico> itens = new ArrayList<ItemHistorico>();
+        
+        for (Historico historico : historicos) 
+        {
+
+            // E se deletarem o enfermeiro ou o medicamento? AI não tem nome né? E o historico como funciona?
+            var nomeEnfermeiro = enfermeiroService.buscarPorCPF(historico.getCpfEnfermeiro()).get(0).getNome();
+            var nomeMedicamento = medicamentoService.buscaPorCodigo(historico.getCodigoMedicamento()).getNome();
+
+            var item = new ItemHistorico("nomeEnfermeiro", historico.getCpfEnfermeiro(), nomeMedicamento, historico.getCodigoMedicamento(), historico.getQuantidadeMedicamento());
+
+            itens.add(item);
+        }
+        /*if (historicos.size() == 0) {
             historicos.add(new Historico("12345678910", "A0000", 4));
             historicos.add(new Historico("12345678911", "50001", 8));
             historicos.add(new Historico("12345678912", "L0004", 2));
@@ -70,7 +85,8 @@ public class HistoricosController {
             }
             // Criar uma data class com tudo que é necessario para o historico
             // Mandar isso como response
-        }
+        }*/
+
         return ResponseEntity.ok(itens);
     }
 }
