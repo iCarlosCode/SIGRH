@@ -53,7 +53,7 @@ public class HistoricoService {
             cadastrarHistorico(new Historico(medicamentoParaRetirar.cpfEnfermeiro(), medicamentoParaRetirar.codigoMedicamento(), medicamentoParaRetirar.quantidadeMedicamento()));
             decrementarQtdMedicamento(medicamentoParaRetirar.codigoMedicamento(), medicamentoParaRetirar.quantidadeMedicamento());
         }*/
-        //historicoRepository.deleteAll();
+        
         Historico historico = historicoRepository.findByCpfEnfermeiroAndCodigoMedicamento(m.cpfEnfermeiro(), m.codigoMedicamento());
 
         if (historico == null)
@@ -108,5 +108,13 @@ public class HistoricoService {
             }
         }*/
         return historicoRepository.findByCpfEnfermeiro(cpfEnfermeiro);
+    }
+
+    public ArrayList<Historico> buscarPorCodigo(String codigo) {
+        return historicoRepository.findByCodigoMedicamento(codigo);
+    }
+
+    public void deletarTudo() {
+        this.historicoRepository.deleteAll();
     }
 }

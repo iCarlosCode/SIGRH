@@ -70,18 +70,17 @@
         <form>
           <div class="input-group" id="barraDePesquisa">
             <input type="text" class="form-control"
-                id="barraDePesquisaEnfermeiroInput"
+                id="barraDePesquisaHistoricoInput"
                 onkeyup="pesquisar()"
                 type="text"
                 name="search"
-                placeholder="Procurar Enfermeiro">
+                placeholder="Procurar Histórico">
             
-            <select class="form-select" name="tipos_pesquisa" id="barraDePesquisarEnfermeiroSelect">
-              <option value="nome">Nome</option>
+            <select class="form-select" name="tipos_pesquisa" id="barraDePesquisarHistoricoSelect">
+              <option value="nomeEnfermeiro">Nome Enfermeiro</option>
               <option value="cpf">CPF</option>
-              <option value="rg">RG</option>
-              <option value="telefone">Telefone</option>
-              <option value="lotacao">Lotação</option>
+              <option value="nomeMedicamento">Nome Medicamento</option>
+              <option value="codigo">Código do Medicamento</option>
           </select>
           </div>
       </form>
@@ -173,16 +172,13 @@
                       >Enfermeiro</label
                     >
                     <input
-                      list="enfemeiros-list"
+                      list="enfemeirosList"
                       type="name"
                       class="form-control"
                       id="enfermeiroRetirarMedicamento"
                     />
-                    <datalist id="enfemeiros-list">
-                      <option value="dog">Dog Bravo</option>
-                      <option value="Mint">
-                      <option value="Strawberry">
-                      <option value="Vanilla">
+                    <datalist id="enfemeirosList">
+                      
                     </datalist>
                 </div>
         
@@ -192,27 +188,26 @@
                       >Medicamento</label
                     >
                     <input
-                      list="medicamentos-list"
+                      list="medicamentosList"
                       type="name"
                       class="form-control"
                       id="medicamentoRetirarMedicamento"
                     />
-                    <datalist id="medicamentos-list">
-                      <option value="dog">Dog Bravo</option>
-                      <option value="Chocolate">
-                      <option value="Coconut">
+                    <datalist id="medicamentosList">
+                      
                     </datalist>
                 </div>
         
                 <!--Quantiade-->
                 <div class="mb-3">
                     <label for="quantidadeRetirarMedicamento" class="form-label"
-                      >Quantidade</label
+                      >Quantidade (<span id="quantidadeMax"></span> restantes)</label
                     >
                     <input
                       type="number"
                       class="form-control"
                       id="quantidadeRetirarMedicamento"
+                      min="0"
                     />
                 </div>
         
@@ -220,7 +215,7 @@
                   type="submit"
                   id="retirarMedicamentos"
                   class="btn btn-primary"
-                  onclick="requestCadastrarAluno()"
+                  onclick="requestRetirarMedicamento()"
                 >
                   Retirar Medicamento
                 </button>

@@ -105,7 +105,9 @@ public class MedicamentoService {
 
     public void somarComQuantidadeMedicamento(String codigo, int quantidadeParaSomar) {
         Medicamento m = buscaPorCodigo(codigo);
-        m.setQuantidade(quantidadeParaSomar + m.getQuantidade());
+        if (quantidadeParaSomar + m.getQuantidade() >= 0) {
+            m.setQuantidade(quantidadeParaSomar + m.getQuantidade());
+        }
         medicamentoRepository.save(m);
     }
 }

@@ -2,6 +2,18 @@ function start() {
   //requestPOST();
   //requestPOST();*/
   requestListarHistoricos();
+  requestPopulateFormOptions();
+  medicamentoRetirarMedicamento.addEventListener("input", function (e) {
+    fetch(`http://localhost:8080/api/armario/buscar?codigo=${this.value}`, {method: 'GET'})
+      .then(response => response.json())
+      .then(result => {
+  
+        quantidadeRetirarMedicamento.max = result.quantidade;
+        quantidadeMax.innerHTML = result.quantidade;
+        console.log(result.quantidade);
+      })
+      .catch(error => console.log('error', error));
+  });
 }
 
 var itensSelecionadosListGroup = [];
@@ -11,7 +23,7 @@ configurarSelecaoInicialDosItensListGroup();
 configurarBtnDesselecionar();
 configurarBtnSelecionarTudo();
 configurarDialogEditar();
-
+/*
 function configurarSelecaoInicialDosItensListGroup() {
   $('.list-group').on('contextmenu', '.list-group-item', function (event) {
     event.preventDefault();
@@ -27,7 +39,7 @@ function configurarSelecaoInicialDosItensListGroup() {
     }
     mudarEstadosDaInterfaceNaSelecao(itensSelecionadosListGroup.length);
   });
-}
+}*/
 
 function configurarBtnDesselecionar() {
   $('#desselecionarTudoBtn').on('click', function (event) {
@@ -44,44 +56,36 @@ function configurarBtnDesselecionar() {
 
 function pesquisar() {
   var pesquisa = document.getElementById(
-    'barraDePesquisaEnfermeiroInput'
+    'barraDePesquisaHistoricoInput'
   ).value;
   if (pesquisa !== '') {
     $('#desselecionarTudoBtn').click();
-    switch (document.getElementById('barraDePesquisarEnfermeiroSelect').value) {
-      case 'nome':
+    switch (document.getElementById('barraDePesquisarHistoricoSelect').value) {
+      case 'nomeEnfermeiro':
         console.log('BUSCANDO POR NOME');
         requestListarHistoricos(
-          `http://localhost:8080/api/buscar?nome=${pesquisa}`
+          `http://localhost:8080/api/_historico?nomeEnfermeiro=${pesquisa}`
         );
-        console.log(`http://localhost:8080/api/buscar?nome=${pesquisa}`);
+        console.log(`http://localhost:8080/api/buscar_historico?nomeEnfermeiro=${pesquisa}`);
         break;
       case 'cpf':
         requestListarHistoricos(
-          `http://localhost:8080/api/buscar?nome=&cpf=${pesquisa}`
+          `http://localhost:8080/api/buscar_historico?nomeEnfermeiro=&cpf=${pesquisa}`
         );
-        console.log(`http://localhost:8080/api/buscar?nome=&cpf=${pesquisa}`);
+        console.log(`http://localhost:8080/api/buscar_historico?nomeEnfermeiro=&cpf=${pesquisa}`);
         break;
-      case 'rg':
+      case 'nomeMedicamento':
         requestListarHistoricos(
-          `http://localhost:8080/api/buscar?nome=&rg=${pesquisa}`
+          `http://localhost:8080/api/buscar_historico?nomeEnfermeiro=&nomeMedicamento=${pesquisa}`
         );
-        console.log(`http://localhost:8080/api/buscar?nome=&rg=${pesquisa}`);
+        console.log(`http://localhost:8080/api/buscar_historico?nomeEnfermeiro=&nomeMedicamento=${pesquisa}`);
         break;
-      case 'telefone':
+      case 'codigo':
         requestListarHistoricos(
-          `http://localhost:8080/api/buscar?nome=&telefone=${pesquisa}`
+          `http://localhost:8080/api/buscar_historico?nomeEnfermeiro=&codigo=${pesquisa}`
         );
         console.log(
-          `http://localhost:8080/api/buscar?nome=&telefone=${pesquisa}`
-        );
-        break;
-      case 'lotacao':
-        requestListarHistoricos(
-          `http://localhost:8080/api/buscar?nome=&lotacao=${pesquisa}`
-        );
-        console.log(
-          `http://localhost:8080/api/buscar?nome=&lotacao=${pesquisa}`
+          `http://localhost:8080/api/buscar_historico?nomeEnfermeiro=&codigo=${pesquisa}`
         );
         break;
     }
@@ -247,6 +251,37 @@ function requestListarHistoricos(
     });*/
 }
 
+function requestPopulateFormOptions() {
+  fetch("http://localhost:8080/api/listar_enfermeiros", {method: 'GET'})
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+      result.forEach(item => {
+        let option = document.createElement('option');
+        option.value = item.cpf;
+        option.innerHTML = item.nome; 
+        enfemeirosList.appendChild(option);
+      });
+    })
+    .catch(error => console.log('error', error));
+
+  fetch("http://localhost:8080/api/armario/get/medicamentos", {method: 'GET'})
+    .then(response => response.json())
+    .then(result => {
+      console.log(result);
+      result.forEach(item => {
+        let option = document.createElement('option');
+        option.value = item.codigo;
+        option.innerHTML = item.nome; 
+        medicamentosList.appendChild(option);
+      });
+    })
+    .catch(error => console.log('error', error));
+
+}
+
+
+
 function r2equestListarHistoricos(
   url = 'http://localhost:8080/api/listar_historicos'
 ) {
@@ -339,6 +374,29 @@ function r2equestListarHistoricos(
       console.log('Erro: ' + e);
     });*/
 
+function requestRetirarMedicamento() {
+  
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    "cpfEnfermeiro": enfermeiroRetirarMedicamento.value,
+    "codigoMedicamento": medicamentoRetirarMedicamento.value,
+    "quantidadeMedicamento": quantidadeRetirarMedicamento.value
+  });
+
+  var requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+
+  fetch("http://localhost:8080/api/retirar_medicamento", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
+}
 
 function requestCadastrarAluno() {
   var nome = document.getElementById('nomeAdicionarEnfermeiroInput').value;

@@ -92,9 +92,9 @@ input#searchbar:focus {
     outline: none;
 }
 
-.form-control {
+/*.form-control {
     text-transform: capitalize;
-}
+}*/
 
 div#barraDePesquisa {
     margin: 10px;

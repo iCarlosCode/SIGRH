@@ -15,5 +15,6 @@ public interface HistoricoRepository extends JpaRepository<Historico, Long> {
     public Historico findByCpfEnfermeiroAndCodigoMedicamento(String cpfEnfermeiro, String codigoMedicamento);
 
     ArrayList<Historico> findByCpfEnfermeiro(String cpfEnfermeiro);
+    ArrayList<Historico> findByCodigoMedicamento(String codigoMedicamento);
     List<Historico> findByCpfEnfermeiroContaining(String cpfEnfermeiro);
 }

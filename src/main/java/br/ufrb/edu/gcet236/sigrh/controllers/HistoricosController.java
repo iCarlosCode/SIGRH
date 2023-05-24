@@ -1,6 +1,7 @@
 package br.ufrb.edu.gcet236.sigrh.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
@@ -32,8 +33,40 @@ public class HistoricosController {
     ArrayList<Historico> historicos = new ArrayList<Historico>();
 
     @GetMapping("/buscar_historico")
-    public ResponseEntity<ArrayList<Historico>> buscarHistorico(@RequestParam String nome, String cpf) {
-        return ResponseEntity.ok(historicosService.buscarPorCPFEnfermeiro(cpf));
+    public ResponseEntity<ArrayList<Historico>> buscarHistorico(@RequestParam String nomeEnfermeiro, String cpf, String nomeMedicamento, String codigo) {
+        ArrayList<Historico> resultadosDaBusca = null;
+        if (!nomeEnfermeiro.isEmpty()) {
+            var enfermeiros = this.enfermeiroService.buscarPorNome(nomeEnfermeiro);
+            if (!enfermeiros.isEmpty()) {
+                for (var enfermeiro : enfermeiros) {
+                    // TODO fazer uma busca por nome, pegar todos os cpfs e fazer uma busca por cpf e juntar tudo numa busca só
+
+                    /*
+                    enfermeiro.getCpf();
+                    var lista2 = this.historicosService.buscarPorCPFEnfermeiro(enfermeiro.getCpf());
+                    resultadosDaBusca = ArrayUtils.addAll(resultadosDaBusca, this.historicosService.buscarPorCPFEnfermeiro(enfermeiro.getCpf()));
+
+                    resultadosDaBusca = (ArrayList<Historico>) Arrays.copyOf((List) resultadosDaBusca, resultadosDaBusca.size() + lista2.size());
+                    System.arraycopy(lista2, 0, resultadosDaBusca, resultadosDaBusca.size(), lista2.size());*/
+
+                }
+            }
+            //resultadosDaBusca = this.historicosService.buscarPorNomeEnfermeiro(nomeEnfermeiro);
+        } 
+        else if (cpf != null) 
+        {
+            resultadosDaBusca = this.historicosService.buscarPorCPFEnfermeiro(cpf);
+        }
+        else if (nomeMedicamento != null) 
+        {
+            //resultadosDaBusca = this.historicosService.buscarPorNomeMedicamento(nomeMedicamento);
+        }
+        else if (codigo != null) 
+        {
+            resultadosDaBusca = this.historicosService.buscarPorCodigo(codigo);
+        }
+
+        return ResponseEntity.ok(resultadosDaBusca);
     }
 
     @PostMapping("/retirar_medicamento")
@@ -50,7 +83,11 @@ public class HistoricosController {
 
         return hospital.getColaboradores().toString();
     }*/
-
+    @DeleteMapping("/deletar_historicos")
+    public ResponseEntity<String> deletarTudo() {
+        historicosService.deletarTudo();
+        return ResponseEntity.ok("Historicos deletados com sucesso!");
+    }
     @GetMapping("/listar_historicos")
     public ResponseEntity<ArrayList<ItemHistorico>> listarEnfermeiros() {
         List<Historico> historicos = historicosService.getHistoricos();
@@ -60,10 +97,14 @@ public class HistoricosController {
         {
 
             // E se deletarem o enfermeiro ou o medicamento? AI não tem nome né? E o historico como funciona?
-            var nomeEnfermeiro = enfermeiroService.buscarPorCPF(historico.getCpfEnfermeiro()).get(0).getNome();
+            var enfermeiro = enfermeiroService.buscarPorCPF(historico.getCpfEnfermeiro());
+            var nomeEnfermeiro = "Enfermeiro não encontrado";
+            if (!enfermeiro.isEmpty()) {
+                nomeEnfermeiro = enfermeiro.get(0).getNome();
+            }
             var nomeMedicamento = medicamentoService.buscaPorCodigo(historico.getCodigoMedicamento()).getNome();
 
-            var item = new ItemHistorico("nomeEnfermeiro", historico.getCpfEnfermeiro(), nomeMedicamento, historico.getCodigoMedicamento(), historico.getQuantidadeMedicamento());
+            var item = new ItemHistorico(nomeEnfermeiro, historico.getCpfEnfermeiro(), nomeMedicamento, historico.getCodigoMedicamento(), historico.getQuantidadeMedicamento());
 
             itens.add(item);
         }
