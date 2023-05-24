@@ -3,9 +3,11 @@ package br.ufrb.edu.gcet236.sigrh.services;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
+import br.ufrb.edu.gcet236.sigrh.repositories.FornecedorRespository;
 
 @Service
 public class FornecedorService {
@@ -14,27 +16,39 @@ public class FornecedorService {
   private ArrayList<String> listaDeNomesECNPJs = new ArrayList<>();
   private static String FORNECEDOR_NAO_ENCONTRADO = "O fornecedor procurado não se encontra no banco de dados";
 
+  @Autowired
+  private FornecedorRespository fornecedorRespository;
+
+  public ArrayList<Fornecedor> getAll() {
+    return (ArrayList<Fornecedor>) fornecedorRespository.findAll();
+  }
+  
+
+
+  /* 
   public ArrayList<Fornecedor> getListaDeFornecedores() {
     return this.listaDeFornecedores;
   }
+ 
+
 // Adiciona o fornecedor caso ele já não se encontre na lista
   public void addFornecedor(Fornecedor fornecedor) {
     if(!pertenceALista(fornecedor)) listaDeFornecedores.add(fornecedor);
   }
-//Compara se o cnpj do fornecedor encontra-se na lista
-  public boolean pertenceALista(Fornecedor fornecedor) {
-    for(Fornecedor fornecedor_aux : listaDeFornecedores) {
-      if(compareStrings(fornecedor_aux.getCnpj(), fornecedor.getCnpj())) return true;
-    }
+ 
 
-    return false;
+//Compara se o cnpj do fornecedor encontra-se na lista _________ATUALIZADO__________
+  public boolean pertenceALista(Fornecedor fornecedor) {
+
   }
+  */
 
   // ********** BUSCA ************ //
 
-  //Busca por Nome e Cnpj
+  //retorn lista de nomes e cnpjs
   public ArrayList<String> listNameAndCnpj() {
     listaDeNomesECNPJs.clear();
+    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRespository.findAll();
     for(Fornecedor fornecedor : listaDeFornecedores) {
       String nomeECNPJ = "Nome: "+fornecedor.getNome()+"; CNPJ: "+fornecedor.getCnpj();
       listaDeNomesECNPJs.add(nomeECNPJ);
@@ -44,18 +58,14 @@ public class FornecedorService {
   }
 
   // Função de busca por CNPJ
+  /* 
   public Object buscaPorCNPJ(String cnpj) {
-
-    for(Fornecedor fornecedor : listaDeFornecedores) {
-      if(compareStrings(fornecedor.getCnpj(), cnpj)) {
-        return fornecedor;
-      }
-    }
-
-    return FORNECEDOR_NAO_ENCONTRADO;
+    return dao.findById(cnpj);
   }
+  */
 
-  // Função de busca por nome
+
+  // Função de busca por nome *********************
   public Object buscaPorNome(String nome) {
     for(Fornecedor fornecedor : listaDeFornecedores) {
       if(compareStrings(fornecedor.getNome(), nome)) {
@@ -69,6 +79,7 @@ public class FornecedorService {
   // Função de busca por parte do nome
   public ArrayList<Fornecedor> buscaPorParteDoNome(String parteDoNome) {
     ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRespository.findAll();
     String parteNome = parteDoNome.replace(" ", "");
     int size = parteNome.length();
     
@@ -77,11 +88,67 @@ public class FornecedorService {
       if(nome.length() >= size) {
         String part = nome.substring(0, size);
         if(part.equalsIgnoreCase(parteNome)) {
-          fornecedores.add(fornecedor);
+          if(!fornecedores.contains(fornecedor)) {
+            fornecedores.add(fornecedor);
+          }
         }
       }
     }
 
+    return fornecedores;
+  }
+
+  // Função de busca por parte do cnpj
+  public ArrayList<Fornecedor> buscaPorPartedoCNPJ(String parteDoCNPJ) {
+    ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRespository.findAll();
+    String parteCNPJ = parteDoCNPJ.replace(" ", "");
+    int size = parteCNPJ.length();
+    
+    for(Fornecedor fornecedor : listaDeFornecedores) {
+      String nome = fornecedor.getCnpj().replace(" ", "");
+      if(nome.length() >= size) {
+        String part = nome.substring(0, size);
+        if(part.equalsIgnoreCase(parteCNPJ)) {
+          if(!fornecedores.contains(fornecedor)) {
+            fornecedores.add(fornecedor);
+          }
+        }
+      }
+    }
+
+    return fornecedores;
+  }
+
+  // Função de busca por parte do nome ou cnpj
+  public ArrayList<Fornecedor> buscaPorPartedoNomeOuCNPJ(String parteDoNomeOuCNPJ) {
+    ArrayList<Fornecedor> fornecedores = new ArrayList<>();
+    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRespository.findAll();
+    int size = parteDoNomeOuCNPJ.length();
+    
+    for(Fornecedor fornecedor : listaDeFornecedores) {
+      String nome = fornecedor.getNome().replace(" ", "");
+      String cnpj = fornecedor.getCnpj().replace(" ", "");
+      if(nome.length() < size)  {
+        String partCNPJ = cnpj.substring(0, size);
+        if(compareStrings(partCNPJ, parteDoNomeOuCNPJ)) {
+          fornecedores.add(fornecedor);
+        }
+      }
+      else if(cnpj.length() < size) {
+        String partNome = nome.substring(0, size);
+        if(compareStrings(partNome, parteDoNomeOuCNPJ)) {
+          fornecedores.add(fornecedor);
+        }
+      } 
+      else {
+        String partCNPJ = cnpj.substring(0, size);
+        String partNome = nome.substring(0, size);
+        if(compareStrings(partNome, parteDoNomeOuCNPJ) || compareStrings(partCNPJ, parteDoNomeOuCNPJ)) {
+          fornecedores.add(fornecedor);
+        }
+      }
+    }
     return fornecedores;
   }
 
