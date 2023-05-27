@@ -1,0 +1,95 @@
+<html lang="pt-br">
+  <head>
+    <!--Importar o Bootstrap-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Histórico</title>
+  </head>
+
+  <body onload="start()">
+
+    <section id="secaoPrincipal">
+      <!--Aqui vai a tela de Principal do Aplicativo, com a appbar e com a lista de alunos e como o botão para adicionar mais-->
+
+      <div style="position: absolute">
+        <!--Cabeçalho-->
+        <div class="fixed-top text-light shadow bg-principal" id="cabecalho">
+          <!--Linha com o texto da nav bar e botões-->
+
+          <nav class="navbar navbar-dark bg-principal">
+            <div class="container-fluid" id="cabecalhoInterno1">
+              <a id="navBarTitulo" class="navbar-brand"> COMBE - Contatos para Medicamentos com Baixo Estoque </a>
+            </div>
+          </nav>
+
+        <!--Barra de pesquisa-->
+        
+          <!--Final da NavBar-->
+          <!--Fim da lista de Abas de Meses-->
+        </div>
+        
+        </div>
+        <!--Fim da div onde fica o conteudo das abas-->
+      </div>
+
+      <!--Aba Mês 1-->
+      <div
+      class="tab-pane fade show active"
+      id="mes-1"
+      role="tabpanel"
+      aria-labelledby="mes-1-tab"
+      style="width: 100vw"
+    >
+      
+      <!--A Lista de Alunos fica dentro deste list-group-->
+      <div id="enfermeirosLista" class="list-group">
+        <!--Aqui é onde vai a lista de alunos-->
+        <a href="#" id="12345678910" class="list-group-item list-group-item-action flex-column align-items-start">
+          <!--Dados aluno-->
+          <div style="float: left; margin-left: 10px;">
+              <!--NOME-->
+              <span class="material-symbols-outlined">factory</span>
+              <label class="user name NOME" style="vertical-align: top; max-width: 350px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Pedro Carlos de Oliveira dos Santos</label>
+              <br>
+ 
+              <!--CPF-->
+              <span class="material-symbols-outlined">phone</span>
+              <label class="user matricula FREQ" style="vertical-align: top;">Telefone:</label>
+              <label class="user matricula FREQ" style="vertical-align: top;">12345678910</label>
+              <br>
+          </div>
+      
+          <div style="float: right; margin-right: 10px;">
+              <!--Medicamento-->
+              <span class="material-symbols-outlined">medication</span>
+              <label class="user matricula FREQ" style="vertical-align: top;">Lozartana</label>
+              <br>
+ 
+              <!--QUANTIDADE-->
+              <span class="material-symbols-outlined">timeline</span>
+              <strong><label class="user matricula FREQ" style="vertical-align: top;">50 unidades</label></strong>
+          </div>
+      </a>
+      </div>
+    </div>
+
+    </section>
+  </body>
+
+  <link
+    href="css/bootstrap.min.css"
+    rel="stylesheet"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="./css/contato_baixo_estoque.css" />
+
+  <script
+    src="js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <script src="js/jquery-3.6.4.slim.min.js"></script>
+
+  <!--<script src="./js/historicos.js" defer></script>-->
+  
+</html>
