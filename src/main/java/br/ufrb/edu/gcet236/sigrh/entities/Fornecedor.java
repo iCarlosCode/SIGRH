@@ -78,5 +78,13 @@ public class Fornecedor {
   public void setFoto(String foto) {
     this.foto = foto;
   }
+
+  public long getID() {
+    return ID;
+  }
+
+  public void setID(long iD) {
+    ID = iD;
+  }
 }
 

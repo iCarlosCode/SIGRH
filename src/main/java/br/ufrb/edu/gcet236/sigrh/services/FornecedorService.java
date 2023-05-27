@@ -153,7 +153,32 @@ public class FornecedorService {
   }
 
   // ********** REMOVER ************ //
- 
+  
+  public Object removerPorCnpj(String cnpj) {
+    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRespository.findAll();
+    for (Fornecedor fornecedor : listaDeFornecedores) {
+      if(compareStrings(cnpj, fornecedor.getCnpj())) {
+        fornecedorRespository.deleteById(fornecedor.getID());
+        return fornecedor;
+      }
+    }
+
+    return FORNECEDOR_NAO_ENCONTRADO;
+  }
+
+  public Object removePorNome(String nome) {
+    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRespository.findAll();
+    for (Fornecedor fornecedor : listaDeFornecedores) {
+      if(compareStrings(nome, fornecedor.getNome())) {
+        fornecedorRespository.deleteById(fornecedor.getID());
+        return fornecedor;
+      }
+    }
+
+    return FORNECEDOR_NAO_ENCONTRADO;
+  }
+
+  /* 
   public Fornecedor removeporCnpj(String cnpj) {
     ListIterator<Fornecedor> it = listaDeFornecedores.listIterator();
     Fornecedor fornecedor_removido = new Fornecedor();
@@ -169,6 +194,7 @@ public class FornecedorService {
 
     return fornecedor_removido;
   }
+  
 
   // Função de remoção por nome
   public Fornecedor removePorNome(String nome) {
@@ -186,17 +212,17 @@ public class FornecedorService {
 
     return fornecedor_removido;
   }
+  */
 
   // ********** ATUALIZAR ************ //
 
   //atualização por cnpj
   public void updatePorCnpj(String cnpj, Fornecedor novoFornecedor){
-    ListIterator<Fornecedor> it = listaDeFornecedores.listIterator();
-
-    while(it.hasNext()) {
-      Fornecedor fornecedor = it.next();
-      if(compareStrings(fornecedor.getCnpj(), cnpj)) {
-        it.set(novoFornecedor);
+    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRespository.findAll();
+    for (Fornecedor fornecedor : listaDeFornecedores) {
+      if(compareStrings(cnpj, fornecedor.getCnpj())) {
+        fornecedorRespository.delete(fornecedor);
+        fornecedorRespository.save(novoFornecedor);
       }
     }
   }

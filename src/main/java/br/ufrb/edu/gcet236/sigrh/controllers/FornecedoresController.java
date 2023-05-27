@@ -3,6 +3,7 @@ package br.ufrb.edu.gcet236.sigrh.controllers;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import br.ufrb.edu.gcet236.sigrh.repositories.FornecedorRespository;
 import br.ufrb.edu.gcet236.sigrh.services.FornecedorService;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5501")
 @RequestMapping(value = "/fornecedores")
 public class FornecedoresController {
 
@@ -80,33 +82,30 @@ public class FornecedoresController {
   }
   */
 
-  /* 
   @DeleteMapping(value = "/remove/cnpj:{cnpj}")
-  public Object deleteByCNPJ(@PathVariable String cnpj) {
-    Object fornecedor = lista.buscaPorCNPJ(cnpj);
-    lista.removeporCnpj(cnpj);
-
-    return fornecedor;
+  public void deleteByCNPJ(@PathVariable String cnpj) {
+    lista.removerPorCnpj(cnpj);
   }
-*/
 
 
   @DeleteMapping(value = "/remove/nome:{nome}")
-  public Fornecedor deleteByName(@PathVariable String nome) {
-    Fornecedor fornecedor_removido = lista.removePorNome(nome);
-
-    return fornecedor_removido;
+  public Object deleteByName(@PathVariable String nome) {
+    return lista.removePorNome(nome);
   }
 
+  
   @PutMapping(value = "/update/cnpj:{cnpj}")
   public void atualizarFornecedorPorCNPJ(@PathVariable String cnpj, @RequestBody Fornecedor fornecedor) {
     lista.updatePorCnpj(cnpj, fornecedor);
   }
 
+  /* 
+
   @PutMapping(value = "/update/nome:{nome}")
   public void atualizarFornecedorPorNome(@PathVariable String nome, @RequestBody Fornecedor fornecedor) {
     lista.updatePorNome(nome, fornecedor);
   }
+  */
 
 
 }
