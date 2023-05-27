@@ -19,10 +19,10 @@ function start() {
 var itensSelecionadosListGroup = [];
 var ultimoItemClicado;
 //configurarSelecaoDosItensListGroupClick();
-configurarSelecaoInicialDosItensListGroup();
-configurarBtnDesselecionar();
-configurarBtnSelecionarTudo();
-configurarDialogEditar();
+//configurarSelecaoInicialDosItensListGroup();
+//configurarBtnDesselecionar();
+//configurarBtnSelecionarTudo();
+//configurarDialogEditar();
 /*
 function configurarSelecaoInicialDosItensListGroup() {
   $('.list-group').on('contextmenu', '.list-group-item', function (event) {
@@ -64,7 +64,7 @@ function pesquisar() {
       case 'nomeEnfermeiro':
         console.log('BUSCANDO POR NOME');
         requestListarHistoricos(
-          `http://localhost:8080/api/_historico?nomeEnfermeiro=${pesquisa}`
+          `http://localhost:8080/api/buscar_historico?nomeEnfermeiro=${pesquisa}`
         );
         console.log(`http://localhost:8080/api/buscar_historico?nomeEnfermeiro=${pesquisa}`);
         break;
@@ -210,9 +210,9 @@ function requestListarHistoricos(
       return JSON.parse(jsonData.replace('[{ ', '[{ "').replaceAll(', { ', ', { "').replaceAll("', ", '", "').replaceAll("='", '":"').replaceAll("'", '"'));
     })*/
     .then(function (jsonData) {
-      console.log(jsonData);
+      //console.log(jsonData);
       const enfermeirosLista = document.getElementById('enfermeirosLista');
-      console.log(jsonData);
+      //console.log(jsonData);
       const items = jsonData.map(doc => {
         //querySnapshot.docs.map(doc => {
 
@@ -255,7 +255,7 @@ function requestPopulateFormOptions() {
   fetch("http://localhost:8080/api/listar_enfermeiros", {method: 'GET'})
     .then(response => response.json())
     .then(result => {
-      console.log(result);
+      //console.log(result);
       result.forEach(item => {
         let option = document.createElement('option');
         option.value = item.cpf;
@@ -268,7 +268,7 @@ function requestPopulateFormOptions() {
   fetch("http://localhost:8080/api/armario/get/medicamentos", {method: 'GET'})
     .then(response => response.json())
     .then(result => {
-      console.log(result);
+      //console.log(result);
       result.forEach(item => {
         let option = document.createElement('option');
         option.value = item.codigo;
@@ -374,17 +374,54 @@ function r2equestListarHistoricos(
       console.log('Erro: ' + e);
     });*/
 
+
+
+
+function obterDataListOuterText(list, value)
+{
+    [...list].forEach(function (item) {
+        if (item.value === value) {
+          console.log(`O item de ${item.value} tem o outerText de ${item.outerText}`);
+            return item.outerText;
+        }
+    });
+}
+
 function requestRetirarMedicamento() {
   
   var myHeaders = new Headers();
+  var nomeEnfermeiro = "";
+  var nomeMedicamento = "";
   myHeaders.append("Content-Type", "application/json");
+  
+  console.log(obterDataListOuterText(enfemeirosList.options, enfermeiroRetirarMedicamento.value));
+
+  [...enfemeirosList.options].forEach(function (item) {
+    if (item.value === enfermeiroRetirarMedicamento.value) {
+      console.log(`O item de ${item.value} tem o outerText de ${item.outerText}`);
+      nomeEnfermeiro = item.outerText;
+    }
+  });
+  
+  [...medicamentosList.options].forEach(function (item) {
+    if (item.value === medicamentoRetirarMedicamento.value) {
+      console.log(`O item de ${item.value} tem o outerText de ${item.outerText}`);
+      nomeMedicamento = item.outerText;
+    }
+  });
+
+
+
 
   var raw = JSON.stringify({
+    "nomeEnfermeiro": nomeEnfermeiro,
     "cpfEnfermeiro": enfermeiroRetirarMedicamento.value,
+    "nomeMedicamento": nomeMedicamento,
     "codigoMedicamento": medicamentoRetirarMedicamento.value,
     "quantidadeMedicamento": quantidadeRetirarMedicamento.value
   });
 
+  alert(raw);
   var requestOptions = {
     method: 'POST',
     headers: myHeaders,

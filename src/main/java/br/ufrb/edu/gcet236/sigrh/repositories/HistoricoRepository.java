@@ -13,8 +13,10 @@ public interface HistoricoRepository extends JpaRepository<Historico, Long> {
     
     @Query("SELECT historico FROM Historico historico WHERE historico.cpfEnfermeiro LIKE %?1% AND historico.codigoMedicamento LIKE %?2%")
     public Historico findByCpfEnfermeiroAndCodigoMedicamento(String cpfEnfermeiro, String codigoMedicamento);
-
+    
     ArrayList<Historico> findByCpfEnfermeiro(String cpfEnfermeiro);
+    ArrayList<Historico> findByNomeEnfermeiroContaining(String nomeEnfermeiro);
     ArrayList<Historico> findByCodigoMedicamento(String codigoMedicamento);
+    ArrayList<Historico> findByNomeMedicamentoContaining(String nomeMedicamento);
     List<Historico> findByCpfEnfermeiroContaining(String cpfEnfermeiro);
 }

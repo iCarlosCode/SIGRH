@@ -58,7 +58,7 @@ public class HistoricoService {
 
         if (historico == null)
         {
-            historico = new Historico(m.cpfEnfermeiro(), m.codigoMedicamento(), m.quantidadeMedicamento());
+            historico = new Historico(m.nomeEnfermeiro(), m.cpfEnfermeiro(), m.nomeMedicamento(), m.codigoMedicamento(), m.quantidadeMedicamento());
         }
         else
         {
@@ -100,16 +100,18 @@ public class HistoricoService {
         this.colaboradores.remove(colaborador);
     }*/
 
-    public ArrayList<Historico> buscarPorCPFEnfermeiro(String cpfEnfermeiro) {
-        /*ArrayList<Historico> resultados = new ArrayList<Historico>();
-        for (Historico h : this.historicos) {
-            if (cpfEnfermeiro.equalsIgnoreCase(h.getCpfEnfermeiro())) {
-                resultados.add(h);
-            }
-        }*/
-        return historicoRepository.findByCpfEnfermeiro(cpfEnfermeiro);
+    public ArrayList<Historico> buscarPorNomeEnfermeiro(String nomeEnfermeiro) {
+        return historicoRepository.findByNomeEnfermeiroContaining(nomeEnfermeiro);
     }
 
+    public ArrayList<Historico> buscarPorCPFEnfermeiro(String cpfEnfermeiro) {
+        return historicoRepository.findByCpfEnfermeiro(cpfEnfermeiro);
+    }
+    
+    public ArrayList<Historico> buscarPorNomeMedicamento(String nomeMedicamento) {
+        return historicoRepository.findByNomeMedicamentoContaining(nomeMedicamento);
+    }
+    
     public ArrayList<Historico> buscarPorCodigo(String codigo) {
         return historicoRepository.findByCodigoMedicamento(codigo);
     }

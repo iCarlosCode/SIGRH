@@ -10,7 +10,9 @@ public class Historico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nomeEnfermeiro;
     private String cpfEnfermeiro;
+    private String nomeMedicamento;
     private String codigoMedicamento;
     private int quantidadeMedicamento;
     
@@ -18,8 +20,10 @@ public class Historico {
     public Historico() {
     
     }
-    public Historico(String cpfEnfermeiro, String codigoMedicamento, int quantidadeMedicamento) {
+    public Historico(String nomeEnfermeiro, String cpfEnfermeiro, String nomeMedicamento, String codigoMedicamento, int quantidadeMedicamento) {
+        this.nomeEnfermeiro = nomeEnfermeiro;
         this.cpfEnfermeiro = cpfEnfermeiro;
+        this.nomeMedicamento = nomeMedicamento;
         this.codigoMedicamento = codigoMedicamento;
         this.quantidadeMedicamento = quantidadeMedicamento;
     }
@@ -42,5 +46,19 @@ public class Historico {
     }
     public void setQuantidadeMedicamento(int quantidade_medicamento) {
         this.quantidadeMedicamento = quantidade_medicamento;
+    }
+    
+    public String getNomeEnfermeiro() {
+        return nomeEnfermeiro;
+    }
+    public void setNomeEnfermeiro(String nomeEnfermeiro) {
+        this.nomeEnfermeiro = nomeEnfermeiro;
+    }
+    
+    public String getNomeMedicamento() {
+        return nomeMedicamento;
+    }
+    public void setNomeMedicamento(String nomeMedicamento) {
+        this.nomeMedicamento = nomeMedicamento;
     }
 }

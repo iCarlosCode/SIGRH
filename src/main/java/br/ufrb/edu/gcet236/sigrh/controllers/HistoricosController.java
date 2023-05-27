@@ -30,28 +30,11 @@ public class HistoricosController {
     @Autowired
     MedicamentoService medicamentoService;
 
-    ArrayList<Historico> historicos = new ArrayList<Historico>();
-
     @GetMapping("/buscar_historico")
     public ResponseEntity<ArrayList<Historico>> buscarHistorico(@RequestParam String nomeEnfermeiro, String cpf, String nomeMedicamento, String codigo) {
         ArrayList<Historico> resultadosDaBusca = null;
         if (!nomeEnfermeiro.isEmpty()) {
-            var enfermeiros = this.enfermeiroService.buscarPorNome(nomeEnfermeiro);
-            if (!enfermeiros.isEmpty()) {
-                for (var enfermeiro : enfermeiros) {
-                    // TODO fazer uma busca por nome, pegar todos os cpfs e fazer uma busca por cpf e juntar tudo numa busca só
-
-                    /*
-                    enfermeiro.getCpf();
-                    var lista2 = this.historicosService.buscarPorCPFEnfermeiro(enfermeiro.getCpf());
-                    resultadosDaBusca = ArrayUtils.addAll(resultadosDaBusca, this.historicosService.buscarPorCPFEnfermeiro(enfermeiro.getCpf()));
-
-                    resultadosDaBusca = (ArrayList<Historico>) Arrays.copyOf((List) resultadosDaBusca, resultadosDaBusca.size() + lista2.size());
-                    System.arraycopy(lista2, 0, resultadosDaBusca, resultadosDaBusca.size(), lista2.size());*/
-
-                }
-            }
-            //resultadosDaBusca = this.historicosService.buscarPorNomeEnfermeiro(nomeEnfermeiro);
+            resultadosDaBusca = this.historicosService.buscarPorNomeEnfermeiro(nomeEnfermeiro);
         } 
         else if (cpf != null) 
         {
@@ -59,7 +42,7 @@ public class HistoricosController {
         }
         else if (nomeMedicamento != null) 
         {
-            //resultadosDaBusca = this.historicosService.buscarPorNomeMedicamento(nomeMedicamento);
+            resultadosDaBusca = this.historicosService.buscarPorNomeMedicamento(nomeMedicamento);
         }
         else if (codigo != null) 
         {
@@ -88,45 +71,24 @@ public class HistoricosController {
         historicosService.deletarTudo();
         return ResponseEntity.ok("Historicos deletados com sucesso!");
     }
+    
     @GetMapping("/listar_historicos")
     public ResponseEntity<ArrayList<ItemHistorico>> listarEnfermeiros() {
         List<Historico> historicos = historicosService.getHistoricos();
         ArrayList<ItemHistorico> itens = new ArrayList<ItemHistorico>();
         
-        for (Historico historico : historicos) 
+        for (Historico h : historicos) 
         {
-
-            // E se deletarem o enfermeiro ou o medicamento? AI não tem nome né? E o historico como funciona?
-            var enfermeiro = enfermeiroService.buscarPorCPF(historico.getCpfEnfermeiro());
-            var nomeEnfermeiro = "Enfermeiro não encontrado";
-            if (!enfermeiro.isEmpty()) {
-                nomeEnfermeiro = enfermeiro.get(0).getNome();
-            }
-            var nomeMedicamento = medicamentoService.buscaPorCodigo(historico.getCodigoMedicamento()).getNome();
-
-            var item = new ItemHistorico(nomeEnfermeiro, historico.getCpfEnfermeiro(), nomeMedicamento, historico.getCodigoMedicamento(), historico.getQuantidadeMedicamento());
+            var item = new ItemHistorico(
+                h.getNomeEnfermeiro(), 
+                h.getCpfEnfermeiro(), 
+                h.getNomeMedicamento(), 
+                h.getCodigoMedicamento(), 
+                h.getQuantidadeMedicamento()
+            );
 
             itens.add(item);
         }
-        /*if (historicos.size() == 0) {
-            historicos.add(new Historico("12345678910", "A0000", 4));
-            historicos.add(new Historico("12345678911", "50001", 8));
-            historicos.add(new Historico("12345678912", "L0004", 2));
-        }
-
-        var itens = new ArrayList<ItemHistorico>();
-        for (Historico historico : historicos) {
-            var enfermeiro = enfermeiroService.buscarPorCPF(historico.getCpfEnfermeiro());
-            var medicamento = medicamentoService.buscaPorCodigo(historico.getCodigoMedicamento());
-            if (!enfermeiro.isEmpty()) {
-                var nomeEnfermeiro = enfermeiro.get(0).getNome();
-                var nomeMedicamento = medicamento.getNome();
-    
-                itens.add(new ItemHistorico(nomeEnfermeiro, historico.getCpfEnfermeiro(), nomeMedicamento, historico.getCodigoMedicamento(), historico.getQuantidadeMedicamento()));
-            }
-            // Criar uma data class com tudo que é necessario para o historico
-            // Mandar isso como response
-        }*/
 
         return ResponseEntity.ok(itens);
     }

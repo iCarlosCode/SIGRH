@@ -201,18 +201,19 @@
                 <!--Quantiade-->
                 <div class="mb-3">
                     <label for="quantidadeRetirarMedicamento" class="form-label"
-                      >Quantidade (<span id="quantidadeMax"></span> restantes)</label
+                      >Quantidade (<span id="quantidadeMax">0</span> restantes)</label
                     >
                     <input
                       type="number"
                       class="form-control"
                       id="quantidadeRetirarMedicamento"
                       min="0"
+                      max="0"
                     />
                 </div>
         
                 <button
-                  type="submit"
+                  
                   id="retirarMedicamentos"
                   class="btn btn-primary"
                   onclick="requestRetirarMedicamento()"
