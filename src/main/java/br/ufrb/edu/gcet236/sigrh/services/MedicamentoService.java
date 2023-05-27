@@ -9,15 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.repositories.MedicamentoRepository;
 
+import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 @Service
 public class MedicamentoService {
     @Autowired
     private MedicamentoRepository medicamentoRepository;
     private ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>();
-    
+    private ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
     
     //Getters e Setters
     public List<Medicamento> getMedicamentos() {
@@ -102,4 +104,20 @@ public class MedicamentoService {
     public Medicamento buscaPorCodigo(String codigo){
         return medicamentoRepository.search(codigo).get(0);
     }
+
+    public ArrayList<String> estoqueBaixoMedicamentos(){
+        ArrayList<String> medicamentosEstoqueBaixo = new ArrayList<String>();
+
+        for (Medicamento medicamento: this.medicamentos){// for varre o array de medicamentos, um a um e se contem a string ele adiciona no array de medicamentos procurados.
+            for (Fornecedor fornecedor: this.fornecedores){
+                if(medicamento.getQuantidade()<10){
+                    String fornecedorBaixoEstoque= fornecedor.getNome() + fornecedor.getTelefone();
+                    if (medicamento.getCnpjFornecedor()==fornecedor.getCnpj()){
+                        medicamentosEstoqueBaixo.add(fornecedorBaixoEstoque);
+                }
+            }
+            }
+        }
+        return medicamentosEstoqueBaixo;
+    } 
 }

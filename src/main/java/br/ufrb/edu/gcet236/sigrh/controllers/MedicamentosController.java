@@ -19,9 +19,11 @@ import org.springframework.web.client.RestTemplate;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.ufrb.edu.gcet236.sigrh.services.FornecedorService;
 import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
+import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 
 
 /**
@@ -35,6 +37,8 @@ public class MedicamentosController { //Crie um novo armario
     @Autowired
     MedicamentoService armario; //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
     
+    @Autowired
+    Fornecedor fornecedores;
     int nextID = 0; //Auxilia na criação do codigo dos medicamentos. (Contador)
 
     //Pegue todos os medicamentos do armario e exibe na tela.
@@ -169,5 +173,13 @@ public class MedicamentosController { //Crie um novo armario
     @GetMapping("/buscar")
     public Medicamento buscarMedicamento(@RequestParam String codigo) {
         return armario.buscaPorCodigo(codigo);
+    }
+    //Teste 
+    @GetMapping("/baixoEstoque")
+    public ArrayList<String> getbaixoEstoqueMedicamentos() { 
+        return armario.estoqueBaixoMedicamentos(); 
     } 
 }
+
+    
+
