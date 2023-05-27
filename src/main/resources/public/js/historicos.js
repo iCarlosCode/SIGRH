@@ -421,7 +421,7 @@ function requestRetirarMedicamento() {
     "quantidadeMedicamento": quantidadeRetirarMedicamento.value
   });
 
-  alert(raw);
+
   var requestOptions = {
     method: 'POST',
     headers: myHeaders,
