@@ -299,10 +299,10 @@ function r2equestListarHistoricos(
     })*/
     .then(function (jsonData) {
       // CAMADA 1🔴
-      console.log("CAMADA 1🔴");
-      console.log(jsonData);
+      //console.log("CAMADA 1🔴");
+      //console.log(jsonData);
       const enfermeirosLista = document.getElementById('enfermeirosLista');
-      console.log(jsonData);
+      //console.log(jsonData);
       const items = jsonData.map(doc => {
         //querySnapshot.docs.map(doc => {
 
@@ -364,8 +364,6 @@ function r2equestListarHistoricos(
       })
       .then((items) => {
         enfermeirosLista.innerHTML = items.join('');
-        console.log("🔴Itens");
-        console.log(items);
       });
 
       
@@ -394,23 +392,19 @@ function requestRetirarMedicamento() {
   var nomeMedicamento = "";
   myHeaders.append("Content-Type", "application/json");
   
-  console.log(obterDataListOuterText(enfemeirosList.options, enfermeiroRetirarMedicamento.value));
+  //console.log(obterDataListOuterText(enfemeirosList.options, enfermeiroRetirarMedicamento.value));
 
   [...enfemeirosList.options].forEach(function (item) {
     if (item.value === enfermeiroRetirarMedicamento.value) {
-      console.log(`O item de ${item.value} tem o outerText de ${item.outerText}`);
       nomeEnfermeiro = item.outerText;
     }
   });
   
   [...medicamentosList.options].forEach(function (item) {
     if (item.value === medicamentoRetirarMedicamento.value) {
-      console.log(`O item de ${item.value} tem o outerText de ${item.outerText}`);
       nomeMedicamento = item.outerText;
     }
   });
-
-
 
 
   var raw = JSON.stringify({
@@ -431,7 +425,7 @@ function requestRetirarMedicamento() {
 
   fetch("http://localhost:8080/api/retirar_medicamento", requestOptions)
     .then(response => response.text())
-    .then(result => console.log(result))
+    .then(result => {requestListarHistoricos();})//console.log(result))
     .catch(error => console.log('error', error));
 }
 
