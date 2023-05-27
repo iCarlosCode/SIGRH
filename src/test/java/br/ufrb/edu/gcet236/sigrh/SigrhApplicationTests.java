@@ -45,7 +45,7 @@ class SigrhApplicationTests {
 		fornecedor.setNome("Fornecedor 1");
 		fornecedores.add(fornecedor);
 
-		Mockito.when(fornecedorService.getListaDeFornecedores()).thenReturn(fornecedores);
+		Mockito.when(fornecedorService.getAll()).thenReturn(fornecedores);
 
 		MvcResult result = mockMvc.perform(get("/fornecedores/all")).andDo(MockMvcResultHandlers.print()).andReturn();
 		System.out.println("OLha só " + result.getResponse().getContentAsString());

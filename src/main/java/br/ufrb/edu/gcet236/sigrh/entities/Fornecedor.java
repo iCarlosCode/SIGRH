@@ -1,12 +1,35 @@
 package br.ufrb.edu.gcet236.sigrh.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Fornecedor {
+  
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long ID;
+
+  @Column(name = "cnpj", nullable = true, length = 14)
   private String cnpj;
+
+  @Column(name = "nome", nullable = true, length = 100)
   private String nome;
+
+  @Column(name = "endereco", nullable = false, length = 100)
   private String endereço;
+
+  @Column(name = "telefone", nullable = true, length = 20)
   private String telefone;
+
+  @Column(name = "email", nullable = false, length = 30)
   private String email;
+
+  @Column(name = "foto", nullable = false, length = 100)
+  private String foto;
 
   public String getCnpj() {
     return this.cnpj;
@@ -47,4 +70,21 @@ public class Fornecedor {
   public void setEmail(String email) {
     this.email = email;
   }
+
+  public String getFoto() {
+    return foto;
+  }
+
+  public void setFoto(String foto) {
+    this.foto = foto;
+  }
+
+  public long getID() {
+    return ID;
+  }
+
+  public void setID(long iD) {
+    ID = iD;
+  }
 }
+
