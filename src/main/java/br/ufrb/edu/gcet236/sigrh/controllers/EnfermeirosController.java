@@ -119,6 +119,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -140,7 +141,7 @@ public class EnfermeirosController {
     }
 
     @GetMapping("/listar_enfermeiros")
-    public ResponseEntity<ArrayList<Enfermeiro>> listarEnfermeiros() {
+    public ResponseEntity<List<Enfermeiro>> listarEnfermeiros() {
         return ResponseEntity.ok(hospital.getColaboradores());
     }
 
@@ -164,7 +165,7 @@ public class EnfermeirosController {
             @RequestParam(required = false) String rg,
             @RequestParam(required = false) String telefone,
             @RequestParam(required = false) String lotacao) {
-        ArrayList<Pessoa> resultadosDaBusca = null;
+        ArrayList<Enfermeiro> resultadosDaBusca = null;
         enfermeiros.clear();
         if (nome != null && !nome.isEmpty()) {
             resultadosDaBusca = this.hospital.buscarPorNome(nome);

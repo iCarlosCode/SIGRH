@@ -4,25 +4,29 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Enfermeiro extends Pessoa {
-    private String lotação;
+    private String lotacao;
+
+    public Enfermeiro() {
+
+    }
 
     // construtor com parâmetros
-    public Enfermeiro(String nome, String cpf, String rg, String telefone, String lotação) {
+    public Enfermeiro(String nome, String cpf, String rg, String telefone, String lotacao) {
         this.setNome(nome);
         this.setCpf(cpf);
         this.setRg(rg);
         this.setTelefone(telefone);
-        this.setLotação(lotação);
+        this.setLotacao(lotacao);
     }
 
-    // getter e setter para a lotação
-    public String getLotação() {
-        return this.lotação;
+    // getter e setter para a lotacao
+    public String getLotacao() {
+        return this.lotacao;
     }
     
-    //define a lotação do enfermeiro.
-    public void setLotação(String lotação) {
-        this.lotação = lotação;
+    //define a lotacao do enfermeiro.
+    public void setLotacao(String lotacao) {
+        this.lotacao = lotacao;
     }
 
     // sobrescrita do método toString() para retornar um objeto JSON
@@ -30,11 +34,7 @@ public class Enfermeiro extends Pessoa {
     public String toString() {
 
         // Retorna uma representação em formato JSON dos atributos lotação, rg, cpf, nome e telefone do enfermeiro.
-        return "{" + " lotação='" + this.getLotação() + "'" + ", rg='" + this.getRg() + "'" + ", cpf='" + this.getCpf() + "'"
+        return "{" + " lotação='" + this.getLotacao() + "'" + ", rg='" + this.getRg() + "'" + ", cpf='" + this.getCpf() + "'"
                 + ", nome='" + this.getNome() + "'" + ", telefone='" + this.getTelefone() + "'" + "}";
-    }
-
-    public String getLotacao() {
-        return null;
     }
 }
