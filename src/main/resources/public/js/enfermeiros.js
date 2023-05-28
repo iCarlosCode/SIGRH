@@ -299,30 +299,36 @@ function requestCadastrarAluno() {
 
 function requestEditarAluno() {
   var nome = document.getElementById('nomeEditarEnfermeiroInput').value;
-  var cpf = document.getElementById('cpfEditarEnfermeiroInput').value;
+  //var cpf = document.getElementById('cpfEditarEnfermeiroInput').value;
   var rg = document.getElementById('rgEditarEnfermeiroInput').value;
   var select = document.getElementById('lotacaoEditarEnfermeiroInput');
   var lotacao = select.options[select.selectedIndex].text;
   var telefone = document.getElementById('telefoneEditarEnfermeiroInput').value;
   var cpfAntigo = itensSelecionadosListGroup[0][0].id;
 
-  //http://localhost:8080/api/editar?nome=Beltrano&telefone=7588888888&rg=6664567&cpf=66645678912&lotação=Enfermaria&cpfAntigo=12345678910
 
-  const response = fetch(
-    `http://localhost:8080/api/editar?nome=${nome}&telefone=${telefone}&rg=${rg}&cpf=${cpf}&lotação=${lotacao}&cpfAntigo=${cpfAntigo}`,
-    { method: 'PATCH' }
-  )
-    .then(function (responseData) {
-      return responseData.json();
-    })
-    .then(function (jsonData) {
-      console.log(jsonData);
-      requestListarAlunos();
-      return jsonData;
-    })
-    .catch(function (e) {
-      console.log('Erro: ' + e);
-    });
+  var myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    "nome": nome,
+    "telefone": telefone,
+    "rg": rg,
+    "cpf": cpfAntigo,
+    "lotação": lotacao
+  });
+
+  var requestOptions = {
+    method: 'PATCH',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
+
+  fetch("http://localhost:8080/api/editar", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log(result))
+    .catch(error => console.log('error', error));
 }
 
 function requestDeletarAluno() {

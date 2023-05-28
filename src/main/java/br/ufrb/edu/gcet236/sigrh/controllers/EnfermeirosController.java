@@ -153,7 +153,7 @@ public class EnfermeirosController {
     }
 
     @PatchMapping(value = "/editar")
-    public String editarEnfermeiro(@RequestBody Enfermeiro enfermeiro, @RequestParam String cpfAntigo) {
+    public String editarEnfermeiro(@RequestBody Enfermeiro enfermeiro) {
         hospital.editarColaboradores(enfermeiro);
 
         return hospital.getColaboradores().toString();
