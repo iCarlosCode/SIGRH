@@ -15,6 +15,6 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
     public List<Medicamento> search(String keyword);
 
     /*@Query("SELECT medicamento FROM Medicamento medicamento WHERE medicamento.quantidade <= 10")
-    public List<Medicamento> search(String keyword);*/
+    public List<Medicamento> medicamentosBaixoEstoque(String keyword);*/
 
 }
