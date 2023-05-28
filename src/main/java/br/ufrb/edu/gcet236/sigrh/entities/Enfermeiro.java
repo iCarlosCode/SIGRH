@@ -1,5 +1,8 @@
 package br.ufrb.edu.gcet236.sigrh.entities;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Enfermeiro extends Pessoa {
     private String lotação;
 
@@ -29,5 +32,9 @@ public class Enfermeiro extends Pessoa {
         // Retorna uma representação em formato JSON dos atributos lotação, rg, cpf, nome e telefone do enfermeiro.
         return "{" + " lotação='" + this.getLotação() + "'" + ", rg='" + this.getRg() + "'" + ", cpf='" + this.getCpf() + "'"
                 + ", nome='" + this.getNome() + "'" + ", telefone='" + this.getTelefone() + "'" + "}";
+    }
+
+    public String getLotacao() {
+        return null;
     }
 }

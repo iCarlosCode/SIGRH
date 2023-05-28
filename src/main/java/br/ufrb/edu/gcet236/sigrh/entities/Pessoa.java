@@ -1,7 +1,14 @@
 package br.ufrb.edu.gcet236.sigrh.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Pessoa {
     private String rg;
+    @Id
+    @Column(nullable=false, unique=true)
     private String cpf;
     private String nome;
     private String telefone;
@@ -22,8 +29,8 @@ public class Pessoa {
     }
 
     // Método para definir o CPF
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setCpf(String id) {
+        this.cpf = id;
     }
 
     // Método para obter o nome
