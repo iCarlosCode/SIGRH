@@ -37,8 +37,8 @@ public class MedicamentosController { //Crie um novo armario
     @Autowired
     MedicamentoService armario; //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
     
-    @Autowired
-    Fornecedor fornecedores;
+    //@Autowired
+    Fornecedor fornecedores = new Fornecedor();
     int nextID = 0; //Auxilia na criação do codigo dos medicamentos. (Contador)
 
     //Pegue todos os medicamentos do armario e exibe na tela.
