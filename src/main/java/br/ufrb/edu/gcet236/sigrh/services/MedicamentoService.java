@@ -18,8 +18,6 @@ import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 public class MedicamentoService {
     @Autowired
     private MedicamentoRepository medicamentoRepository;
-    private ArrayList<Medicamento> medicamentos = new ArrayList<Medicamento>();
-    private ArrayList<Fornecedor> fornecedores = new ArrayList<Fornecedor>();
     
     //Getters e Setters
     public List<Medicamento> getMedicamentos() {
@@ -42,7 +40,8 @@ public class MedicamentoService {
     
     public ArrayList<Medicamento> searchMedicamento(String identificador){
         ArrayList<Medicamento> medicamentosProcurados = new ArrayList<Medicamento>();
-        for (Medicamento medicamento: this.medicamentos){// for varre o array de medicamentos, um a um e se contem a string ele adiciona no array de medicamentos procurados.
+        // TODO fazer as buscas usando o medicamentoRepository usar o historicoRepository como exemplo
+        /*for (Medicamento medicamento: this.medicamentos){// for varre o array de medicamentos, um a um e se contem a string ele adiciona no array de medicamentos procurados.
 
             //juntando o nome e o codigo do medicamento em uma string só
             String identificadorMedicamento = medicamento.getNome() + " " + medicamento.getCodigo();
@@ -52,7 +51,7 @@ public class MedicamentoService {
                 medicamentosProcurados.add(medicamento);
             }
             
-        }
+        }*/
 
         return medicamentosProcurados;
     }
@@ -89,14 +88,14 @@ public class MedicamentoService {
         info,
         cnpjFornecedor);
 
-        for(int i = 0; i < this.medicamentos.size(); i++){
+        /*for(int i = 0; i < this.medicamentos.size(); i++){
             //Compara com os já existentes com base no código.
             if(this.medicamentos.get(i).getCodigo().equals(codigoAntigo)){
                 //Editando o medicamento. (Trocando o antigo pelo novo)
                 this.medicamentos.set(i, medicamentoEditado);
                 return new ResponseEntity<>("Medicamento editado com sucesso.", HttpStatus.OK);
             }
-        }
+        }*/
         return new ResponseEntity<>("Medicamento não editado.", HttpStatus.NOT_FOUND);
     }
 
