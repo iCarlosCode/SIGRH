@@ -1,5 +1,6 @@
 package br.ufrb.edu.gcet236.sigrh.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,7 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
     @Query("SELECT medicamento FROM Medicamento medicamento WHERE medicamento.codigo LIKE %?1%")
     public List<Medicamento> search(String keyword);
 
-    /*@Query("SELECT medicamento FROM Medicamento medicamento WHERE medicamento.quantidade <= 10")
-    public List<Medicamento> medicamentosBaixoEstoque(String keyword);*/
+    @Query("SELECT medicamento FROM Medicamento medicamento WHERE medicamento.quantidade <= 10")
+    public ArrayList<Medicamento> medicamentosBaixoEstoque();
 
 }

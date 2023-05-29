@@ -112,8 +112,8 @@ public class MedicamentoService {
         }
         medicamentoRepository.save(m);
     }
-    public ArrayList<String> estoqueBaixoMedicamentos(){
-        ArrayList<String> medicamentosEstoqueBaixo = new ArrayList<String>();
+    public ArrayList<Medicamento> estoqueBaixoMedicamentos(){
+        /*ArrayList<String> medicamentosEstoqueBaixo = new ArrayList<String>();
 
         for (Medicamento medicamento: this.medicamentos){// for varre o array de medicamentos, um a um e se contem a string ele adiciona no array de medicamentos procurados.
             for (Fornecedor fornecedor: this.fornecedores){
@@ -125,6 +125,7 @@ public class MedicamentoService {
             }
             }
         }
-        return medicamentosEstoqueBaixo;
+        return medicamentosEstoqueBaixo;*/
+        return medicamentoRepository.medicamentosBaixoEstoque();
     } 
 }
