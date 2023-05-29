@@ -50,10 +50,10 @@ public class FornecedoresController {
           @RequestParam(value = "search-fornecedor", required = false) String searchFornecedor
   ) {
       if(searchSelect.replace(" ", "").equalsIgnoreCase("CNPJ")) {
-        return lista.buscaPorPartedoCNPJ(searchFornecedor);
+        return fornecedorRepository.findByCnpjContaining(searchFornecedor);
       }
       else if(searchSelect.replace(" ", "").equalsIgnoreCase("Nome")) {
-        return lista.buscaPorParteDoNome(searchFornecedor);
+        return fornecedorRepository.findByNomeContaining(searchFornecedor);
       }
       else {
         return lista.buscaPorPartedoNomeOuCNPJ(searchFornecedor);
