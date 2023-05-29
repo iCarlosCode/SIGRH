@@ -9,5 +9,4 @@ public class SigrhApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SigrhApplication.class, args);
 	}
-
 }
