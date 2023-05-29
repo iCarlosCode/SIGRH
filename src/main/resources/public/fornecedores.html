@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>Fornecedores</title>
+  </head>
+  <body>
+    <section class="container" id="container">
+      <header class="header">
+        <nav class="nav-bar">
+          <figure><img src="img/logo.svg" alt="logo" class="logo" /></figure>
+          <div class="search-container">
+            <form
+              action="/search"
+              method="get"
+              class="search-parameters"
+              id="search-form"
+            >
+              <select
+                name="search-select"
+                id="search-select"
+                class="search-select"
+              >
+                <option value="Filtros:">Filtros:</option>
+                <option value="Nome">Nome</option>
+                <option value="CNPJ">CNPJ</option>
+              </select>
+              <figure class="arrow-down-container">
+                <img
+                  src="img/arrow_down.svg"
+                  alt="arrow down"
+                  class="arrow-down"
+                />
+              </figure>
+              <input
+                type="search"
+                name="search-fornecedor"
+                placeholder="Encontre seu fornecedor"
+                id="search-input"
+                class="search-input"
+              />
+              <img
+                src="img/search.svg"
+                alt="ícone de lupa"
+                class="lupa-icon"
+                id="lupa-icon"
+              />
+            </form>
+            <button class="btn-adicionar" id="btn-adicionar">
+              <img src="img/plus.svg" alt="ícone de mais" class="plus-icon" />
+              <span>Novo Fornecedor</span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <main class="main">
+        <p class="main-title" id="main-title">Fornecedores Cadastrados</p>
+        <div class="fornecedores-container" id="fornecedores-grid">
+          <div class="fornecedor" style="display: none">
+            <img
+              src="img/heineken.png"
+              alt="company profile picture"
+              class="company-logo"
+            />
+            <div class="company-information">
+              <p class="company-name">Heineken Brasil</p>
+              <div class="adtional-information">
+                <p class="company-email">
+                  E-mail: <span class="email">heinekenbr@gmail.com</span>
+                </p>
+                <p class="company-CNPJ">
+                  CNPJ: <span class="cnpj">068.906.368-96</span>
+                </p>
+              </div>
+            </div>
+            <button
+              class="btn-visualizar-fornecedor"
+              id="btn-visualizar-fornecedor"
+            >
+              Visualizar
+            </button>
+          </div>
+        </div>
+        <div id="camadaSobreposicao" class="hidden"></div>
+        <div class="hidden" id="container-novo-fornecedor">
+          <div class="side-bar-novo-fornecedor">
+            <img src="img/barra-lateral-inscrição.svg" alt="barra lateral" />
+          </div>
+          <form
+            class="inscricao-novo-fornecedor"
+            id="inscricao-novo-fornecedor"
+            method="POST"
+          >
+            <div class="header-inscricao">
+              <div class="container-imput-file">
+                <div class="input-file-holder" id="input-file-holder">
+                  <label for="input-file"
+                    ><img
+                      src="img/camera-viewfinder 1.svg"
+                      alt="botao para inserir foto"
+                      class="profile-img-input"
+                  /></label>
+                  <input type="file" id="input-file" class="input-file" />
+                </div>
+                <p class="input-file-legenda">Adicione uma foto de perfil</p>
+                <a
+                  class="fechar-inscricao"
+                  id="fechar-inscricao"
+                  style="cursor: pointer"
+                >
+                  <img
+                    src="img/fechar.svg"
+                    alt="x"
+                    class="btn-fechar-inscricao"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="user-information-inscricao">
+              <div class="campo">
+                <div>
+                  <label for="incricao-nome" class="label-cadastro"
+                    >Nome/Razão social</label
+                  >
+                  <input
+                    type="text"
+                    id="inscricao-nome"
+                    class="cadastro-input"
+                    placeholder="Digite o nome do Fornecedor"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label for="inscricao-cnpj" class="label-cadastro"
+                    >CNPJ</label
+                  >
+                  <input
+                    type="text"
+                    id="inscricao-cnpj"
+                    class="cadastro-input"
+                    placeholder="8908.4567.3547-00001/34"
+                    maxlength="14"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label for="inscricao-email" class="label-cadastro"
+                    >E-mail</label
+                  >
+                  <input
+                    type="text"
+                    id="inscricao-email"
+                    class="cadastro-input"
+                    placeholder="exemplo@gmail.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label for="inscricao-endereco" class="label-cadastro"
+                    >Endereço</label
+                  >
+                  <input
+                    type="text"
+                    id="inscricao-endereco"
+                    class="cadastro-input"
+                    placeholder="Informe seu endereço"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label for="inscricao-telefone" class="label-cadastro"
+                    >Telefone</label
+                  >
+                  <input
+                    type="text"
+                    id="inscricao-telefone"
+                    class="cadastro-input"
+                    placeholder="(21)993028883"
+                    required
+                  />
+                </div>
+              </div>
+              <!--
+              <div class="cadastro-informacao-adicional">
+                <p class="label-cadastro">Serviço fornecido</p>
+                <div class="checkbox-container">
+                  <div class="checkbox-holder">
+                    <input
+                      type="checkbox"
+                      id="cosmeticos-checkbox"
+                      class="checkbox"
+                    />
+                    <label for="cosmeticos-checkbox">Cosméticos</label>
+                  </div>
+                  <div class="checkbox-holder">
+                    <input
+                      type="checkbox"
+                      id="alimentos-checkbox"
+                      class="checkbox"
+                    />
+                    <label for="alimentos-checkbox">Alimentos</label>
+                  </div>
+                  <div class="checkbox-holder">
+                    <input
+                      type="checkbox"
+                      id="embalagens-checkbox"
+                      class="checkbox"
+                    />
+                    <label for="embalagens-checkbox">Embalagens</label>
+                  </div>
+                  <div class="checkbox-holder">
+                    <input
+                      type="checkbox"
+                      id="componentes-checkbox"
+                      class="checkbox"
+                    />
+                    <label for="componentes-checkbox"
+                      >Componentes Eletrônicos</label
+                    >
+                  </div>
+                  <div class="checkbox-holder">
+                    <input
+                      type="checkbox"
+                      id="outros-checkbox"
+                      class="checkbox"
+                    />
+                    <label for="outros-checkbox">Outros: </label>
+                    <input type="text" class="outros-input" />
+                  </div>
+                </div>
+              </div>
+              -->
+            </div>
+            <button
+              type="submit"
+              class="btn-enviar-inscricao"
+              id="btn-enviar-inscricao"
+            >
+              Cadastrar
+            </button>
+          </form>
+        </div>
+        <div class="hidden" id="container-visualizar-fornecedor">
+          <div class="side-bar-visualizar-fornecedor">
+            <img src="img/barra-lateral-visualizar.svg" alt="barra lateral" />
+          </div>
+          <form
+            class="visualizar-fornecedor"
+            id="visualizar-fornecedor"
+            method="POST"
+          >
+            <div class="header-visualizar">
+              <div class="container-imput-file">
+                <div
+                  class="input-file-holder"
+                  id="input-file-holder-visualizar"
+                >
+                  <label for="input-file"
+                    ><img
+                      src="img/camera-viewfinder 1.svg"
+                      alt="botao para inserir foto"
+                      class="profile-img-input"
+                      id="camera-view-finder"
+                  /></label>
+                  <input
+                    type="file"
+                    id="input-file-visualizar"
+                    class="profile-img-file"
+                  />
+                </div>
+                <p class="img-file-legenda">Foto de perfil</p>
+                <a
+                  class="fechar-inscricao"
+                  id="fechar-visualizacao"
+                  style="cursor: pointer"
+                >
+                  <img
+                    src="img/fechar.svg"
+                    alt="x"
+                    class="btn-fechar-inscricao"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="user-information-visualizar">
+              <div class="campo-visualizar">
+                <div>
+                  <label for="nome-fornecedor" class="label-visualizar"
+                    >Nome/Razão social</label
+                  >
+                  <input
+                    type="text"
+                    id="visualizar-nome"
+                    class="informação-fornecedor"
+                    value="Heineken Brasil"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="campo-visualizar">
+                <div>
+                  <label for="inscricao-cnpj" class="label-visualizar"
+                    >CNPJ</label
+                  >
+                  <input
+                    type="text"
+                    id="visualizar-cnpj"
+                    class="informação-fornecedor"
+                    value="8908.4567.3547-00001/34"
+                    maxlength="14"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="campo-visualizar">
+                <div>
+                  <label for="visualizar-email" class="label-visualizar"
+                    >E-mail</label
+                  >
+                  <input
+                    class="informação-fornecedor"
+                    type="text"
+                    id="visualizar-email"
+                    value="exemplo@gmail.com"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="campo-visualizar">
+                <div>
+                  <label for="visualizar-endereco" class="label-visualizar"
+                    >Endereço</label
+                  >
+                  <input
+                    type="text"
+                    id="visualizar-endereco"
+                    class="informação-fornecedor"
+                    value="Rua das flores, nº 332, Jasmin"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="campo-visualizar">
+                <div>
+                  <label for="inscricao-telefone" class="label-visualizar"
+                    >Telefone</label
+                  >
+                  <input
+                    type="text"
+                    value="(75)98264-6563"
+                    id="visualizar-telefone"
+                    class="informação-fornecedor"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="container-apagar-atualizar-fornecedor">
+              <button class="btn-apagar-fornecedor" id="btn-apagar-fornecedor">
+                <img
+                  src="img/icon-trash.svg"
+                  alt="icone de alteração de dados"
+                />
+                Apagar fornecedor
+              </button>
+
+              <button class="btn-atualizar-dados" id="btn-alterar-dados">
+                <img
+                  src="img/icon-pencil.svg"
+                  alt="icone de alteração de dados"
+                />
+                Atualizar dados
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="hidden" id="container-atualizar-fornecedor">
+          <div class="side-bar-atualizar-fornecedor">
+            <img src="img/barra-lateral-atualizar.svg" alt="barra lateral" />
+          </div>
+          <form
+            class="atualizar-fornecedor"
+            id="atualizar-fornecedor"
+            method="POST"
+          >
+            <div class="header-atualizar">
+              <div class="container-imput-file">
+                <div class="input-file-holder" id="input-file-holder-atualizar">
+                  <label for="input-file-atualizar"
+                    ><img
+                      src="img/camera-viewfinder 1.svg"
+                      alt="botao para inserir foto"
+                      class="profile-img-input"
+                      id="profile-img-input-atualizar"
+                  /></label>
+                  <input
+                    type="file"
+                    id="input-file-atualizar"
+                    class="input-file"
+                  />
+                </div>
+                <p class="input-file-legenda">Altere sua foto de perfil</p>
+                <a
+                  class="fechar-inscricao"
+                  id="fechar-atualizacao"
+                  style="cursor: pointer"
+                >
+                  <img
+                    src="img/fechar.svg"
+                    alt="x"
+                    class="btn-fechar-inscricao"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="user-information-atualizar">
+              <div class="campo">
+                <div>
+                  <label for="atualizar-nome" class="label-atualizar"
+                    >Nome/Razão social</label
+                  >
+                  <input
+                    type="text"
+                    id="atualizar-nome"
+                    class="atualizar-input"
+                    placeholder="Digite o nome do Fornecedor"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label
+                    for="atualizar-cnpj"
+                    class="label-atualizar"
+                    id="label-cnpj-atualizar"
+                    >CNPJ</label
+                  >
+                  <input
+                    type="text"
+                    id="atualizar-cnpj"
+                    class="atualizar-input"
+                    placeholder="8908.4567.3547-00001/34"
+                    maxlength="14"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label for="atualizar-email" class="label-atualizar"
+                    >E-mail</label
+                  >
+                  <input
+                    type="text"
+                    id="atualizar-email"
+                    class="atualizar-input"
+                    placeholder="exemplo@gmail.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label for="atualizar-endereco" class="label-atualizar"
+                    >Endereço</label
+                  >
+                  <input
+                    type="text"
+                    id="atualizar-endereco"
+                    class="atualizar-input"
+                    placeholder="Informe seu endereço"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="campo">
+                <div>
+                  <label for="atualizar-telefone" class="label-atualizar"
+                    >Telefone</label
+                  >
+                  <input
+                    type="text"
+                    id="atualizar-telefone"
+                    class="atualizar-input"
+                    placeholder="(21)993028883"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn-atualizar-fornecedor"
+              id="btn-salvar-alteracao"
+            >
+              <img
+                src="img/icon-pencil.svg"
+                alt="icone de alteração de dados"
+              />
+              Salvar alterações
+            </button>
+          </form>
+        </div>
+        <div id="segunda-camada-sobreposicao" class="hidden"></div>
+        <div class="modal" id="modal">
+          <div class="hidden" id="modal-container-fornecedor-adicionado">
+            <div class="modal-header">
+              <img
+                src="img/pop up-icon-check.svg"
+                alt="icone de salvar alterações"
+              />
+              <h1 class="modal-title">Fornecedor adicionado com sucesso!</h1>
+            </div>
+            <div class="modal-body">
+              <p>Seus dados armazenados e organizados com segurança.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="modal">
+          <div class="hidden" id="modal-container-fornecedor-removido">
+            <div class="modal-header">
+              <img
+                src="img/pop up-icon-check.svg"
+                alt="icone de salvar alterações"
+              />
+              <h1 class="modal-title">Fornecedor removido da sua lista</h1>
+            </div>
+            <div class="modal-body">
+              <p>Atenção: Essa ação não poderá ser desfeita.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="modal">
+          <div class="hidden" id="modal-container-salvar-alteracao">
+            <div class="modal-header">
+              <img
+                src="img/pop-up-icon-pencil.svg"
+                alt="icone de salvar alterações"
+              />
+              <h1 class="modal-title">Suas alterações foram salvas!</h1>
+            </div>
+            <div class="modal-body">
+              <p>Mantenha os dados dos seus fornecedores sempre atualizados.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal" id="modal">
+          <div class="hidden" id="modal-container-confirmar-remocao">
+            <div class="modal-header">
+              <img src="img/icon-danger.svg" alt="icone de salvar alterações" />
+              <h1 class="modal-title">Tem certeza que deseja remover?</h1>
+            </div>
+            <div class="modal-body">
+              <div class="container-remover-cancelar">
+                <button
+                  class="btn-confirmar-remocao"
+                  id="btn-confirmar-remocao"
+                >
+                  Sim, tenho certeza.
+                </button>
+                <button class="btn-cancelar-remocao" id="btn-cancelar-remocao">
+                  Não, cancelar.
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </section>
+    <script src="js/script.js"></script>
+  </body>
+</html>
