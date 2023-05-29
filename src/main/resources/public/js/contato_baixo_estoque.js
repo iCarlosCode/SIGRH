@@ -458,7 +458,7 @@ function requestCadastrarAluno() {
         telefone: telefone,
         rg: rg,
         cpf: cpf,
-        lotação: lotacao,
+        lotacao: lotacao,
       }),
     };
 
@@ -486,10 +486,10 @@ function requestEditarAluno() {
   var telefone = document.getElementById('telefoneEditarEnfermeiroInput').value;
   var cpfAntigo = itensSelecionadosListGroup[0][0].id;
 
-  //http://localhost:8080/api/editar?nome=Beltrano&telefone=7588888888&rg=6664567&cpf=66645678912&lotação=Enfermaria&cpfAntigo=12345678910
+  //http://localhost:8080/api/editar?nome=Beltrano&telefone=7588888888&rg=6664567&cpf=66645678912&lotacao=Enfermaria&cpfAntigo=12345678910
 
   const response = fetch(
-    `http://localhost:8080/api/editar?nome=${nome}&telefone=${telefone}&rg=${rg}&cpf=${cpf}&lotação=${lotacao}&cpfAntigo=${cpfAntigo}`,
+    `http://localhost:8080/api/editar?nome=${nome}&telefone=${telefone}&rg=${rg}&cpf=${cpf}&lotacao=${lotacao}&cpfAntigo=${cpfAntigo}`,
     { method: 'PATCH' }
   )
     .then(function (responseData) {
@@ -545,7 +545,7 @@ function requestPOST() {
       telefone: '75999999999',
       rg: '1234567',
       cpf: '12345678910',
-      lotação: 'Apartamentos',
+      lotacao: 'Apartamentos',
     }),
   };
   const response = fetch('http://localhost:8080/api/cadastrar', init)
