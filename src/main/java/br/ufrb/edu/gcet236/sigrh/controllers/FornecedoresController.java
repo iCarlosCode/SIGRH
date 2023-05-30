@@ -60,28 +60,6 @@ public class FornecedoresController {
       }
   }
 
-
-  /* 
-  @GetMapping(value = "/search/cnpj:{cnpj}")
-  public Object searchByCNPJ(@PathVariable String cnpj) {
-    Object resultado = lista.buscaPorCNPJ(cnpj);
-
-    return resultado;
-  }
-
-  @GetMapping(value = "/search/name:{name}")
-  public Object searchByName(@PathVariable String name) {
-    Object resultado = lista.buscaPorNome(name);
-
-    return resultado;
-  }
-
-  @GetMapping(value = "/search/part:{name}")
-  public ArrayList<Fornecedor> searchByPartOfName(@PathVariable String name) {
-    return lista.buscaPorParteDoNome(name);
-  }
-  */
-
   @DeleteMapping(value = "/remove/cnpj:{cnpj}")
   public Fornecedor deleteByCNPJ(@PathVariable String cnpj) {
     return lista.removePorCnpj(cnpj);
@@ -97,13 +75,8 @@ public class FornecedoresController {
     lista.updatePorCnpj(cnpj, fornecedor);
   }
 
-  /* 
-
   @PutMapping(value = "/update/nome:{nome}")
   public void atualizarFornecedorPorNome(@PathVariable String nome, @RequestBody Fornecedor fornecedor) {
     lista.updatePorNome(nome, fornecedor);
   }
-  */
-
-
 }

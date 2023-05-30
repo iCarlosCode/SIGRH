@@ -183,7 +183,7 @@ public class MedicamentosController { //Crie um novo armario
         var itens = new ArrayList<ItemBaixoEstoque>();
         for (var m : armario.estoqueBaixoMedicamentos())
         {
-            var fornecedor = fornecedorService.buscaPorPartedoCNPJ(m.getCnpjFornecedor()).get(0);
+            Fornecedor fornecedor = fornecedorService.buscaPorCnpj(m.getCnpjFornecedor());
             String nomeFornecedor = fornecedor.getNome();
             String telefoneFornecedor = fornecedor.getTelefone();
             String nomeMedicamento = m.getNome();
