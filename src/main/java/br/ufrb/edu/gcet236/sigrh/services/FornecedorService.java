@@ -132,29 +132,20 @@ public class FornecedorService {
 
   // ********** REMOVER ************ //
   
-  public Object removerPorCnpj(String cnpj) {
-    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRepository.findAll();
-    for (Fornecedor fornecedor : listaDeFornecedores) {
-      if(compareStrings(cnpj, fornecedor.getCnpj())) {
-        fornecedorRepository.deleteById(fornecedor.getID());
-        return fornecedor;
-      }
-    }
+  public Fornecedor removePorCnpj(String cnpj) {
+    Fornecedor fornecedorDeletado = fornecedorRepository.findByCnpj(cnpj);
 
-    return FORNECEDOR_NAO_ENCONTRADO;
+    fornecedorRepository.delete(fornecedorDeletado);
+    return fornecedorDeletado;
   }
 
-  public Object removePorNome(String nome) {
-    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRepository.findAll();
-    for (Fornecedor fornecedor : listaDeFornecedores) {
-      if(compareStrings(nome, fornecedor.getNome())) {
-        fornecedorRepository.deleteById(fornecedor.getID());
-        return fornecedor;
-      }
-    }
+  public Fornecedor removePorNome(String nome) {
+    Fornecedor fornecedorDeletado = fornecedorRepository.findByNome(nome);
 
-    return FORNECEDOR_NAO_ENCONTRADO;
-  }
+    fornecedorRepository.delete(fornecedorDeletado);
+
+    return fornecedorDeletado;
+    }
 
   /* 
   public Fornecedor removeporCnpj(String cnpj) {
@@ -172,7 +163,6 @@ public class FornecedorService {
 
     return fornecedor_removido;
   }
-  
 
   // Função de remoção por nome
   public Fornecedor removePorNome(String nome) {
@@ -195,25 +185,24 @@ public class FornecedorService {
   // ********** ATUALIZAR ************ //
 
   //atualização por cnpj
-  public void updatePorCnpj(String cnpj, Fornecedor novoFornecedor){
-    listaDeFornecedores = (ArrayList<Fornecedor>) fornecedorRepository.findAll();
-    for (Fornecedor fornecedor : listaDeFornecedores) {
-      if(compareStrings(cnpj, fornecedor.getCnpj())) {
-        fornecedorRepository.delete(fornecedor);
-        fornecedorRepository.save(novoFornecedor);
-      }
-    }
-  }
-//atualização por nome
-  public void updatePorNome(String nome, Fornecedor novoFornecedor){
-    ListIterator<Fornecedor> it = listaDeFornecedores.listIterator();
+  public Fornecedor updatePorCnpj(String cnpj, Fornecedor novoFornecedor){
+    Fornecedor fornecedorModificado = fornecedorRepository.findByCnpj(cnpj);
+   
+    fornecedorRepository.delete(fornecedorModificado);
+    fornecedorRepository.save(novoFornecedor);
 
-    while(it.hasNext()) {
-      Fornecedor fornecedor = it.next();
-      if(compareStrings(fornecedor.getNome(), nome)){
-        it.set(novoFornecedor);
-      }
-    }
+    return fornecedorModificado;
+  }
+
+
+
+//atualização por nome
+  public Fornecedor updatePorNome(String nome, Fornecedor novoFornecedor){
+   Fornecedor fornecedorModificado = fornecedorRepository.findByNome(nome);
+
+   fornecedorRepository.delete(fornecedorModificado);
+
+   return fornecedorModificado;
   }
 
   // ********** REUTILIZAVEIS ************ //

@@ -83,17 +83,15 @@ public class FornecedoresController {
   */
 
   @DeleteMapping(value = "/remove/cnpj:{cnpj}")
-  public void deleteByCNPJ(@PathVariable String cnpj) {
-    lista.removerPorCnpj(cnpj);
+  public Fornecedor deleteByCNPJ(@PathVariable String cnpj) {
+    return lista.removePorCnpj(cnpj);
   }
-
 
   @DeleteMapping(value = "/remove/nome:{nome}")
   public Object deleteByName(@PathVariable String nome) {
     return lista.removePorNome(nome);
   }
 
-  
   @PutMapping(value = "/update/cnpj:{cnpj}")
   public void atualizarFornecedorPorCNPJ(@PathVariable String cnpj, @RequestBody Fornecedor fornecedor) {
     lista.updatePorCnpj(cnpj, fornecedor);
