@@ -19,9 +19,10 @@ import org.springframework.web.client.RestTemplate;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.ufrb.edu.gcet236.sigrh.services.FornecedorService;
+
 import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
+import br.ufrb.edu.gcet236.sigrh.responses.ItemBaixoEstoque;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
 import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 
@@ -36,6 +37,9 @@ import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 public class MedicamentosController { //Crie um novo armario
     @Autowired
     MedicamentoService armario; //Cria um array vazio no armario, onde se coloca, edita e retira medicamentos.
+
+    @Autowired
+    FornecedorService fornecedorService;
     
     //@Autowired
     Fornecedor fornecedores = new Fornecedor();
@@ -176,8 +180,19 @@ public class MedicamentosController { //Crie um novo armario
     }
     //Teste 
     @GetMapping("/baixoEstoque")
-    public ArrayList<String> getbaixoEstoqueMedicamentos() { 
-        return armario.estoqueBaixoMedicamentos(); 
+    public ArrayList<ItemBaixoEstoque> getbaixoEstoqueMedicamentos() { 
+        var itens = new ArrayList<ItemBaixoEstoque>();
+        for (var m : armario.estoqueBaixoMedicamentos())
+        {
+            var fornecedor = fornecedorService.buscaPorPartedoCNPJ(m.getCnpjFornecedor()).get(0);
+            String nomeFornecedor = fornecedor.getNome();
+            String telefoneFornecedor = fornecedor.getTelefone();
+            String nomeMedicamento = m.getNome();
+            int quantidadeMedicamento = m.getQuantidade();
+            
+            itens.add(new ItemBaixoEstoque(nomeFornecedor, telefoneFornecedor, nomeMedicamento, quantidadeMedicamento));
+        }
+        return itens; 
     } 
 }
 

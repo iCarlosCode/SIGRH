@@ -236,9 +236,9 @@ function requestListarAlunos(
          <div style="float: right; margin-right: 10px;">
              <br>
 
-             <!--LOTAÇÃO-->
+             <!--lotacao-->
              <span class="material-symbols-outlined">location_on</span>
-             <label class= "user matricula FREQ" style="vertical-align: top;">${doc.lotação}</label>
+             <label class= "user matricula FREQ" style="vertical-align: top;">${doc.lotacao}</label>
              <br>
 
              <!--TELEFONE-->
@@ -278,7 +278,7 @@ function requestCadastrarAluno() {
         telefone: telefone,
         rg: rg,
         cpf: cpf,
-        lotação: lotacao,
+        lotacao: lotacao,
       }),
     };
 
@@ -315,7 +315,7 @@ function requestEditarAluno() {
     "telefone": telefone,
     "rg": rg,
     "cpf": cpfAntigo,
-    "lotação": lotacao
+    "lotacao": lotacao
   });
 
   var requestOptions = {
@@ -371,7 +371,7 @@ function requestPOST() {
       telefone: '75999999999',
       rg: '1234567',
       cpf: '12345678910',
-      lotação: 'Apartamentos',
+      lotacao: 'Apartamentos',
     }),
   };
   const response = fetch('http://localhost:8080/api/cadastrar', init)
