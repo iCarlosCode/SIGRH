@@ -110,7 +110,7 @@ public class MedicamentoService {
     }
 
     public ArrayList<Medicamento> buscaPorCodigoOuNome(String codigo, String nome){
-        return medicamentoRepository.findByCodigoOrNome(codigo, nome);
+        return medicamentoRepository.findByCodigoOrNome(codigo.toLowerCase(), nome.toLowerCase());
     }
 
     public void somarComQuantidadeMedicamento(String codigo, int quantidadeParaSomar) {
