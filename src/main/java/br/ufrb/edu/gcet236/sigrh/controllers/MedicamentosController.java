@@ -168,7 +168,10 @@ public class MedicamentosController { //Crie um novo armario
     @RequestParam String fabricante,
     @RequestParam String info,
     @RequestParam String cnpjFornecedor){
-
+        if (fornecedorService.buscaPorCnpj(cnpjFornecedor) == null)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fornecedor não cadastrado" + cnpjFornecedor);
+        }
         return armario.editMedicamento(codigo, Integer.parseInt(quantidade), Integer.parseInt(peso), Boolean.parseBoolean(generico), Boolean.parseBoolean(tarjaPreta), nome, fabricante, info, cnpjFornecedor); 
     }   
 

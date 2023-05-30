@@ -244,7 +244,11 @@ function requestPatch(){
       
       fetch(`http://localhost:8080/api/armario/edit/medicamento?codigo=${codigoNovo}&quantidade=${quantidade}&peso=${peso}&generico=${generico}&tarjaPreta=${tarjaPreta}&nome=${nome}&fabricante=${fabricante}&info=${info}&cnpjFornecedor=${fornecedor}`, requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
+        .then(result => {
+            console.log(result);
+            clearScreen();
+            requestGet();
+        })
         .catch(error => console.log('error', error));
 }
 
