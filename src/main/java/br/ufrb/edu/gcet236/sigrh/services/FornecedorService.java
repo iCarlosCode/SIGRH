@@ -201,7 +201,8 @@ public class FornecedorService {
    Fornecedor fornecedorModificado = fornecedorRepository.findByNome(nome);
 
    fornecedorRepository.delete(fornecedorModificado);
-
+   fornecedorRepository.save(novoFornecedor);
+   
    return fornecedorModificado;
   }
 
