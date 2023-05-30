@@ -55,8 +55,10 @@
                     <span class="aviso">*</span>
                     
                     <label for="cnpjFornecedor">CNPJ Fornecedor</label>
-                    <input id="cnpjFornecedor" type="text">
-
+                    <input id="cnpjFornecedor" list="fornecedoresList" type="text">
+                    <datalist id="fornecedoresList">
+                      
+                    </datalist>
                     <button onclick="requestPOST()" type="submit"> Cadastrar</button>
                 </form>
             </div>

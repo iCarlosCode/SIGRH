@@ -5,7 +5,27 @@ var codigoAntigo;
 function start(){
     clearScreen();
     requestGet();
+    requestPopulateFormOptions();
 }
+
+function requestPopulateFormOptions() {
+    fetch("http://localhost:8080/fornecedores/all", {method: 'GET'})
+      .then(response => response.json())
+      .then(result => {
+        console.log(result);
+        result.forEach(item => {
+          let option = document.createElement('option');
+          option.value = item.cnpj;
+          option.innerHTML = item.nome;
+          fornecedoresList.appendChild(option);
+        });
+      })
+      .catch(error => console.log('error', error));
+  
+    
+  
+  }
+
 function requestGet(){
     
     const response = fetch("http://localhost:8080/api/armario/get/medicamentos")
