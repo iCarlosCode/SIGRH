@@ -76,27 +76,25 @@ public class MedicamentoService {
         return new ResponseEntity<>("Medicamento não encontrado.", HttpStatus.NOT_FOUND);
     }
     //Lê os atributos do novo medicamento e susbstitui um a um do antigo medicamento.
-    public ResponseEntity<String> editMedicamento(String codigoAntigo, String codigoNovo, int quantidade, int peso, boolean generico, boolean tarjaPreta, String nome, String fabricante, String info, String cnpjFornecedor){
+    public ResponseEntity<String> editMedicamento(String codigo, int quantidade, int peso, boolean generico, boolean tarjaPreta, String nome, String fabricante, String info, String cnpjFornecedor){
         //Crie um medicamento auxiliar 
-        Medicamento medicamentoEditado = new Medicamento(codigoNovo, 
-        quantidade, 
-        peso,
-        generico, 
-        tarjaPreta, 
-        nome, 
-        fabricante, 
-        info,
-        cnpjFornecedor);
+        Medicamento medicamentoEditado = medicamentoRepository.findByCodigo(codigo).get(0);
+        
+        if (medicamentoEditado == null){
+            return new ResponseEntity<>("Medicamento não editado.", HttpStatus.NOT_FOUND);
+        }
 
-        /*for(int i = 0; i < this.medicamentos.size(); i++){
-            //Compara com os já existentes com base no código.
-            if(this.medicamentos.get(i).getCodigo().equals(codigoAntigo)){
-                //Editando o medicamento. (Trocando o antigo pelo novo)
-                this.medicamentos.set(i, medicamentoEditado);
-                return new ResponseEntity<>("Medicamento editado com sucesso.", HttpStatus.OK);
-            }
-        }*/
-        return new ResponseEntity<>("Medicamento não editado.", HttpStatus.NOT_FOUND);
+        medicamentoEditado.setQuantidade(quantidade);
+        medicamentoEditado.setPesoEmGramas(peso);
+        medicamentoEditado.setStatusGenerico(generico);
+        medicamentoEditado.setStatusTarjaPreta(tarjaPreta);
+        medicamentoEditado.setNome(nome);
+        medicamentoEditado.setFabricante(fabricante);
+        medicamentoEditado.setOutrasInformacoes(info);
+        medicamentoEditado.setCnpjFornecedor(cnpjFornecedor);
+
+        medicamentoRepository.save(medicamentoEditado);
+        return new ResponseEntity<String>("Medicamento editado com sucesso.", HttpStatus.OK);
     }
 
     // GAMBIARRA
