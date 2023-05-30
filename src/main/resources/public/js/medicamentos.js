@@ -237,41 +237,15 @@ function requestPatch(){
     var fornecedor = document.querySelector("#modal-fornecedor").value
     var info = document.querySelector("#modal-info").value
 
-   /*  var medHeaders = new Headers();
-    medHeaders.append("Content-Type", "application/json");
-
-    var rawUpdate = JSON.stringify({
-        
-            "codigo": codigoNovo,
-            "quantidade": quantidade,
-            "pesoEmGramas": peso,
-            "statusGenerico": generico,
-            "statusTarjaPreta": tarjaPreta,
-            "nome": nome,
-            "fabricante": fabricante,
-            "outrasInformacoes": info,
-            "cnpjFornecedor": fornecedor,
-        
-    }); */
-
-    //API FETCH, envia todas as informações para o BACKEND
-    //Usamos nela o formato QueryString (sequencia de atributos após ? e separadas por &)
-    fetch(`http://localhost:8080/api/armario/edit/medicamento?codigo=${codigoNovo}&quantidade=${quantidade}&peso=${peso}&generico=${generico}&tarjaPreta=${tarjaPreta}&nome=${nome}&fabricante=${fabricante}&info=${info}&fornecedor=${fornecedor}`, 
-    {
-        //verbo HTTP
+    var requestOptions = {
         method: 'PATCH',
-        /* headers: medHeaders,
-        body: rawUpdate, */
-    })
-    .then(response => {
-        //Atualizando a página após enviar os dados (o true significa que atualizamos a página a partir dos dados do servidor)
-        
-        //Comentado por que reiniciar a página tava apagando a mensagem de erro
-        location.reload(true);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+        redirect: 'follow'
+      };
+      
+      fetch(`http://localhost:8080/api/armario/edit/medicamento?codigo=${codigoNovo}&quantidade=${quantidade}&peso=${peso}&generico=${generico}&tarjaPreta=${tarjaPreta}&nome=${nome}&fabricante=${fabricante}&info=${info}&cnpjFornecedor=${fornecedor}`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 }
 
 //Essa função salva código antigo do medicamento antes de o Medicamento ser editado
