@@ -19,4 +19,8 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
     public ArrayList<Medicamento> medicamentosBaixoEstoque();
 
     public ArrayList<Medicamento> findByCodigo(String codigo);
+    
+    public ArrayList<Medicamento> findByCnpjFornecedor(String cnpjFornecedor);
+
+
 }
