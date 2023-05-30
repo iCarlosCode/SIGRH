@@ -143,6 +143,7 @@ function abrirModal(medicamento) {
                             <p><strong>Status Genérico:</strong>  <input id="modal-generico" type="checkbox" value="" ${isGeneric}></p>
                             <p><strong>Status Tarja Preta:</strong>  <input id="modal-tarja-preta" type="checkbox" value="" ${isTarjaPreta}></p>
                             <p><strong>Fabricante:</strong>  <input id="modal-fabricante" value="${medicamento.fabricante}"></p>
+                            <p><strong>CNPJ do Fornecedor:</strong>  <input id="modal-fornecedor" value ="${medicamento.cnpjFornecedor}"></p>
                             <p><strong>Outras informações:</strong>  <input id="modal-info" value="${medicamento.outrasInformacoes}"></p>`;
     
     modal.show();
@@ -226,29 +227,25 @@ function requestDelete() {
 //e envia para o bakend editar, salvar e reenviar as informações.
 function requestPatch(){
     //Pegando todas as informações do medicamento a ser editado
-    codigoNovo = document.querySelector("#modal-codigo").value
+    var codigoNovo = document.querySelector("#modal-codigo").value
     var quantidade = document.querySelector("#modal-quantidade").value
     var peso = document.querySelector("#modal-peso").value
     var generico = document.querySelector("#modal-generico").checked
     var tarjaPreta = document.querySelector("#modal-tarja-preta").checked
     var nome = document.querySelector("#modal-nome").value
     var fabricante = document.querySelector("#modal-fabricante").value
+    var fornecedor = document.querySelector("#modal-fornecedor").value
     var info = document.querySelector("#modal-info").value
 
-    //API FETCH, envia todas as informações para o BACKEND
-    //Usamos nela o formato QueryString (sequencia de atributos após ? e separadas por &)
-    fetch(`http://localhost:8080/api/armario/edit/medicamento?codigoAntigo=${codigoAntigo}&codigoNovo=${codigoNovo}&quantidade=${quantidade}&peso=${peso}&generico=${generico}&tarjaPreta=${tarjaPreta}&nome=${nome}&fabricante=${fabricante}&info=${info}`, 
-    {
-        //verbo HTTP
-        method: 'PATCH'
-    })
-    .then(response => {
-        //Atualizando a página após enviar os dados (o true significa que atualizamos a página a partir dos dados do servidor)
-        location.reload(true);
-    })
-    .catch(error => {
-      console.log(error);
-    });
+    var requestOptions = {
+        method: 'PATCH',
+        redirect: 'follow'
+      };
+      
+      fetch(`http://localhost:8080/api/armario/edit/medicamento?codigo=${codigoNovo}&quantidade=${quantidade}&peso=${peso}&generico=${generico}&tarjaPreta=${tarjaPreta}&nome=${nome}&fabricante=${fabricante}&info=${info}&cnpjFornecedor=${fornecedor}`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 }
 
 //Essa função salva código antigo do medicamento antes de o Medicamento ser editado
