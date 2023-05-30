@@ -159,7 +159,7 @@ public class MedicamentosController { //Crie um novo armario
     }
 
     @PatchMapping("/edit/medicamento")
-    public ResponseEntity<String> editMedicamento(@RequestParam String codigoAntigo, @RequestParam String codigoNovo, 
+    public ResponseEntity<String> editMedicamento(@RequestParam String codigo, 
     @RequestParam String quantidade,
     @RequestParam String peso,
     @RequestParam String generico,
@@ -169,7 +169,7 @@ public class MedicamentosController { //Crie um novo armario
     @RequestParam String info,
     @RequestParam String cnpjFornecedor){
 
-        return armario.editMedicamento(codigoAntigo, codigoNovo, Integer.parseInt(quantidade), Integer.parseInt(peso), Boolean.parseBoolean(generico), Boolean.parseBoolean(tarjaPreta), nome, fabricante, info, cnpjFornecedor); 
+        return armario.editMedicamento(codigo, Integer.parseInt(quantidade), Integer.parseInt(peso), Boolean.parseBoolean(generico), Boolean.parseBoolean(tarjaPreta), nome, fabricante, info, cnpjFornecedor); 
     }   
 
     // GAMBIARRA

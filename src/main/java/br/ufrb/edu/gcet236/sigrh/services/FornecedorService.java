@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
 import br.ufrb.edu.gcet236.sigrh.repositories.FornecedorRespository;
+import br.ufrb.edu.gcet236.sigrh.repositories.MedicamentoRepository;
 
 @Service
 public class FornecedorService {
@@ -15,6 +16,8 @@ public class FornecedorService {
 
   @Autowired
   private FornecedorRespository fornecedorRepository;
+  @Autowired
+  private MedicamentoRepository medicamentoRepository;
 
   public ArrayList<Fornecedor> getAll() {
     return (ArrayList<Fornecedor>) fornecedorRepository.findAll();
@@ -54,11 +57,18 @@ public class FornecedorService {
   }
 
   // ********** REMOVER ************ //
-  
-  /* remove por cnpj */
+  public void removerMedicamentosAssociados(String cnpj) {
+      var medicamentos = medicamentoRepository.findByCnpjFornecedor(cnpj);
+
+      for (var m : medicamentos)
+      {
+          medicamentoRepository.delete(m);
+      }
+  }
+
   public Fornecedor removePorCnpj(String cnpj) {
     Fornecedor fornecedorDeletado = fornecedorRepository.findByCnpj(cnpj);
-
+    removerMedicamentosAssociados(fornecedorDeletado.getCnpj());
     fornecedorRepository.delete(fornecedorDeletado);
     return fornecedorDeletado;
   }
@@ -66,7 +76,7 @@ public class FornecedorService {
   /* remove por nome */
   public Fornecedor removePorNome(String nome) {
     Fornecedor fornecedorDeletado = fornecedorRepository.findByNome(nome);
-
+    removerMedicamentosAssociados(fornecedorDeletado.getCnpj());
     fornecedorRepository.delete(fornecedorDeletado);
 
     return fornecedorDeletado;

@@ -18,4 +18,9 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
     @Query("SELECT medicamento FROM Medicamento medicamento WHERE medicamento.quantidade < 10")
     public ArrayList<Medicamento> medicamentosBaixoEstoque();
 
+    public ArrayList<Medicamento> findByCodigo(String codigo);
+    
+    public ArrayList<Medicamento> findByCnpjFornecedor(String cnpjFornecedor);
+
+
 }
