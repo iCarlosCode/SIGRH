@@ -3,7 +3,7 @@ package br.ufrb.edu.gcet236.sigrh.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
+
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.repositories.HistoricoRepository;
 import br.ufrb.edu.gcet236.sigrh.requests.MedicamentoParaRetirar;

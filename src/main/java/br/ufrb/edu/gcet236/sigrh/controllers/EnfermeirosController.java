@@ -173,7 +173,7 @@ public class EnfermeirosController {
             resultadosDaBusca = this.hospital.buscarPorCPF(cpf);
         } else if (rg != null) {
             resultadosDaBusca = this.hospital.buscarPorRG(rg);
-        } else if (telefone != null) {
+        } else if (telefone != null && !telefone.isEmpty()) {
             resultadosDaBusca = this.hospital.buscarPorTelefone(telefone);
         } else if (lotacao != null) {
             resultadosDaBusca = this.hospital.buscarPorLotacao(lotacao);
