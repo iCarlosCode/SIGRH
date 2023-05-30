@@ -156,8 +156,8 @@ function abrirModal(medicamento) {
         isTarjaPreta = "checked"
     }
     modalTitle.textContent = medicamento.nome;
-    modalBody.innerHTML = ` <p><strong>Nome:</strong> <span><input id="modal-nome" value="${medicamento.nome}"></span></p>
-                            <p><strong>Código:</strong> <span><input id="modal-codigo" value="${medicamento.codigo}"></span></p>
+    modalBody.innerHTML = ` <p><strong>Código:</strong> <span><input id="modal-codigo" value="${medicamento.codigo}" disabled></span></p>
+                            <p><strong>Nome:</strong> <span><input id="modal-nome" value="${medicamento.nome}"></span></p>
                             <p><strong>Quantidade:</strong> <input id="modal-quantidade" value="${medicamento.quantidade}"></p>
                             <p><strong>Peso em gramas:</strong>  <input id="modal-peso" value="${medicamento.pesoEmGramas}"></p>
                             <p><strong>Status Genérico:</strong>  <input id="modal-generico" type="checkbox" value="" ${isGeneric}></p>

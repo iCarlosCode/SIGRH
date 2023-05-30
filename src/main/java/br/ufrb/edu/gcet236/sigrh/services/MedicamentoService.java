@@ -39,8 +39,8 @@ public class MedicamentoService {
     }
     
     public ArrayList<Medicamento> searchMedicamento(String identificador){
-        ArrayList<Medicamento> medicamentosProcurados = new ArrayList<Medicamento>();
-        // TODO fazer as buscas usando o medicamentoRepository usar o historicoRepository como exemplo
+        //ArrayList<Medicamento> medicamentosProcurados = new ArrayList<Medicamento>();
+        // DO fazer as buscas usando o medicamentoRepository usar o historicoRepository como exemplo
         /*for (Medicamento medicamento: this.medicamentos){// for varre o array de medicamentos, um a um e se contem a string ele adiciona no array de medicamentos procurados.
 
             //juntando o nome e o codigo do medicamento em uma string só
@@ -53,7 +53,14 @@ public class MedicamentoService {
             
         }*/
 
-        return medicamentosProcurados;
+            ArrayList<Medicamento> listatemp = medicamentoRepository.findByCodigoOrNome(identificador, identificador);
+            ArrayList<Medicamento> lista = medicamentoRepository.findByCodigo(identificador);
+            for (Medicamento dupMed : listatemp) {
+                if (!lista.contains(dupMed)) {
+                    lista.add(dupMed);
+                }
+            }
+            return lista;
     }
     //Remoção do medicamento
     public ResponseEntity<String> removeMedicamento(String codigo){
@@ -68,7 +75,7 @@ public class MedicamentoService {
             }
             
         }*/
-        Medicamento medicamento = medicamentoRepository.search(codigo).get(0);
+        Medicamento medicamento = medicamentoRepository.findByCodigo(codigo).get(0);
         if(medicamento != null){
             medicamentoRepository.delete(medicamento);
             return new ResponseEntity<>("Medicamento removido com sucesso.", HttpStatus.OK);
@@ -99,7 +106,11 @@ public class MedicamentoService {
 
     // GAMBIARRA
     public Medicamento buscaPorCodigo(String codigo){
-        return medicamentoRepository.search(codigo).get(0);
+        return medicamentoRepository.findByCodigo(codigo).get(0);
+    }
+
+    public ArrayList<Medicamento> buscaPorCodigoOuNome(String codigo, String nome){
+        return medicamentoRepository.findByCodigoOrNome(codigo.toLowerCase(), nome.toLowerCase());
     }
 
     public void somarComQuantidadeMedicamento(String codigo, int quantidadeParaSomar) {

@@ -12,8 +12,8 @@ import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 //@Repository
 public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> {
 
-    @Query("SELECT medicamento FROM Medicamento medicamento WHERE medicamento.codigo LIKE %?1%")
-    public List<Medicamento> search(String keyword);
+    @Query("SELECT DISTINCT medicamento FROM Medicamento medicamento WHERE medicamento.codigo LIKE %?1% or medicamento.nome LIKE %?2% ")
+    public ArrayList<Medicamento> findByCodigoOrNome(String codigo, String nome);  
 
     @Query("SELECT medicamento FROM Medicamento medicamento WHERE medicamento.quantidade < 10")
     public ArrayList<Medicamento> medicamentosBaixoEstoque();
@@ -23,4 +23,5 @@ public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> 
     public ArrayList<Medicamento> findByCnpjFornecedor(String cnpjFornecedor);
 
 
+    public ArrayList<Medicamento> findByNome(String nome);
 }
