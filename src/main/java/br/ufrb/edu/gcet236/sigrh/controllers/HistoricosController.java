@@ -1,11 +1,9 @@
 package br.ufrb.edu.gcet236.sigrh.controllers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
-import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
+
 import br.ufrb.edu.gcet236.sigrh.requests.MedicamentoParaRetirar;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -54,7 +54,7 @@ public class EnfermeiroService {
     }
 
     public ArrayList<Enfermeiro> buscarPorTelefone(String telefone){
-        return this.enfermeiroRepository.findByTelefone(telefone);
+        return this.enfermeiroRepository.findByTelefoneContaining(telefone);
     }
 
 
