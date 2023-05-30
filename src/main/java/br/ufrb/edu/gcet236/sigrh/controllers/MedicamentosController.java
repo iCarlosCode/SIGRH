@@ -78,7 +78,6 @@ public class MedicamentosController { //Crie um novo armario
             }
             else if ((fornecedor != null) && fornecedor.toString().contains(entradaCadastro.getCnpjFornecedor()) == false)
             {
-                
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Fornecedor não cadastrado");
             }
             /*if (!mockMvc.perform(get("http://localhost:8080/fornecedores/all")).andDo(MockMvcResultHandlers.print()).getResponse().getContentAsString().contains("" + entradaCadastro.getCnpjFornecedor())) 
@@ -111,7 +110,7 @@ public class MedicamentosController { //Crie um novo armario
                        // System.out.println("Medicamento: " + remedio.getNome());
     
                         //Verificando se já tem um remedio igual ao que vc está querendo cadastrar
-                         if(remedio.equals(medicamentoNovo)){
+                        if(remedio.equals(medicamentoNovo)){
                             //aumentando a quantidade do medicamento
                             jaExiste = true;
                             remedio.setQuantidade(remedio.getQuantidade() + medicamentoNovo.getQuantidade());

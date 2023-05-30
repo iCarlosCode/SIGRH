@@ -19,7 +19,7 @@ import br.ufrb.edu.gcet236.sigrh.repositories.FornecedorRespository;
 import br.ufrb.edu.gcet236.sigrh.services.FornecedorService;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5501")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping(value = "/fornecedores")
 public class FornecedoresController {
 
