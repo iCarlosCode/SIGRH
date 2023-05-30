@@ -6,16 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import br.ufrb.edu.gcet236.sigrh.DatabaseConnection;
-
 import br.ufrb.edu.gcet236.sigrh.entities.Enfermeiro;
-import br.ufrb.edu.gcet236.sigrh.entities.Pessoa;
 import br.ufrb.edu.gcet236.sigrh.repositories.EnfermeiroRepository;
-
-import java.sql.*;
 
 @Service
 public class EnfermeiroService {
@@ -62,7 +54,7 @@ public class EnfermeiroService {
     }
 
     public ArrayList<Enfermeiro> buscarPorTelefone(String telefone){
-        return this.enfermeiroRepository.findByTelefone(telefone);
+        return this.enfermeiroRepository.findByTelefoneContaining(telefone);
     }
 
 

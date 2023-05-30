@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import br.ufrb.edu.gcet236.sigrh.services.FornecedorService;
+
 import br.ufrb.edu.gcet236.sigrh.services.MedicamentoService;
 import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
