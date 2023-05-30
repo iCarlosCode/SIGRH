@@ -25,6 +25,7 @@ import br.ufrb.edu.gcet236.sigrh.entities.Medicamento;
 import br.ufrb.edu.gcet236.sigrh.responses.ItemBaixoEstoque;
 import br.ufrb.edu.gcet236.sigrh.entities.EntradaCadastro;
 import br.ufrb.edu.gcet236.sigrh.entities.Fornecedor;
+import br.ufrb.edu.gcet236.sigrh.services.FornecedorService;
 
 
 /**
